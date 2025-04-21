@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
   registrations: "accounts/registrations"
 }
+devise_scope :user do
+  patch 'users/update_avatar', to: 'accounts/registrations#update_avatar', as: :update_avatar
+  delete 'users/remove_avatar', to: 'accounts/registrations#remove_avatar', as: :remove_avatar
+end
 
   root "home#index"
   

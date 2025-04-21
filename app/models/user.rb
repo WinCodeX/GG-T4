@@ -19,6 +19,7 @@ def login
   @login || self.username || self.email
 end
 
+
 # Override Devise method
 def self.find_for_database_authentication(warden_conditions)
   conditions = warden_conditions.dup

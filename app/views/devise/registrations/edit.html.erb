@@ -8,7 +8,7 @@
       <!-- 🔁 Avatar Preview + Trigger -->
       <div class="mb-6 text-center">
         <label class="block text-sm font-medium text-gray-600 mb-2">Current Avatar</label>
-        <div class="cursor-pointer inline-block" onclick="document.getElementById('avatarModal').classList.remove('hidden')">
+        <div class="cursor-pointer inline-block" onclick="openFileSelector()">
           <% begin %>
             <% if resource.persisted? && resource.avatar.attached? && resource.avatar.blob.present? %>
               <%= image_tag resource.avatar.variant(resize_to_fill: [96, 96]), id: "avatarPreview", class: "mx-auto rounded-full h-24 w-24 object-cover transition hover:opacity-70" %>
@@ -22,22 +22,24 @@
           <% end %>
           <p class="text-xs mt-1 text-purple-600">Click to change avatar</p>
         </div>
+
+        <!-- 🧩 Hidden Input (Properly Form-Bound) -->
+        <%= f.file_field :avatar, accept: "image/*", id: "avatarInput", class: "hidden" %>
       </div>
 
       <!-- 🔤 Username -->
       <div class="mb-4">
         <%= f.label :username, class: "block text-sm text-gray-600 mb-1" %>
-        <%= f.text_field :username, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400" %>
+        <%= f.text_field :username, autocomplete: "username", class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400" %>
       </div>
 
       <!-- 📧 Email -->
       <div class="mb-4">
         <%= f.label :email, class: "block text-sm text-gray-600 mb-1" %>
-        <%= f.email_field :email, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400" %>
+        <%= f.email_field :email, autocomplete: "email", class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400" %>
       </div>
 
-      <hr class="my-6">
-
+      
       <!-- 🔒 Password Update -->
       <p class="text-sm text-gray-500 mb-2">Leave password fields blank if you don't want to change them</p>
 
@@ -69,47 +71,29 @@
   </div>
 </div>
 
-<!-- 🪟 Avatar Selection Modal -->
-<div id="avatarModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
-  <div class="bg-white rounded-xl shadow-lg p-6 w-96 relative">
-    <button class="absolute top-2 right-2 text-gray-500" onclick="document.getElementById('avatarModal').classList.add('hidden')">&times;</button>
-    <h3 class="text-lg font-semibold mb-4 text-center">Choose New Avatar</h3>
-
-    <input type="file" id="avatarInput" accept="image/*" class="mb-4 w-full border p-2 rounded" onchange="previewNewAvatar(this)">
-    <img id="newAvatarPreview" src="" class="rounded-full h-24 w-24 object-cover mx-auto hidden" />
-
-    <button type="button" onclick="confirmAvatar()" class="mt-4 w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition">Confirm</button>
-  </div>
-</div>
-
-<!-- 🧠 Logic -->
+<!-- 🧠 Avatar Preview Logic -->
 <script>
-  let selectedAvatarBlob = null;
+  (() => {
+    let selectedAvatarBlob = null;
 
-  function previewNewAvatar(input) {
-    const file = input.files[0];
-    const preview = document.getElementById("newAvatarPreview");
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        preview.src = e.target.result;
-        preview.classList.remove("hidden");
-        selectedAvatarBlob = file;
-      };
-      reader.readAsDataURL(file);
-    }
-  }
+    window.openFileSelector = function() {
+      document.getElementById("avatarInput").click();
+    };
 
-  function confirmAvatar() {
-    const input = document.getElementById("avatarInput");
-    const form = document.querySelector("form");
+    document.addEventListener("DOMContentLoaded", () => {
+      const avatarInput = document.getElementById("avatarInput");
+      avatarInput.addEventListener("change", function () {
+        const file = this.files[0];
+        const preview = document.getElementById("avatarPreview");
 
-    if (selectedAvatarBlob) {
-      input.setAttribute("name", "user[avatar]");
-      input.classList.add("hidden"); // keep it clean
-      form.appendChild(input); // attach input to form
-      document.getElementById("avatarPreview").src = URL.createObjectURL(selectedAvatarBlob);
-      document.getElementById("avatarModal").classList.add("hidden");
-    }
-  }
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            preview.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    });
+  })();
 </script>
