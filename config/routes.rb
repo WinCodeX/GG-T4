@@ -32,6 +32,13 @@ end
   namespace :riders do
     get "dashboard", to: "dashboard#index"
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :packages, only: [:create, :index, :show]
+      post '/login', to: 'auth#login'
+    end
+  end
   
   # Defines the root path route ("/")
   # root "posts#index"
