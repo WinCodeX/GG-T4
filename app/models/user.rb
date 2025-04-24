@@ -2,8 +2,10 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-       :recoverable, :rememberable, :validatable,
-       authentication_keys: [:login]
+       :recoverable, :rememberable, :validatable, :jwt_authenticatable,
+       authentication_keys: [:login],
+       jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+
   has_one_attached :avatar
   enum role: { admin: 0, agent: 1, rider: 2, client: 3 }
 

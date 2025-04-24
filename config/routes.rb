@@ -37,6 +37,14 @@ end
     namespace :v1 do
       resources :packages, only: [:create, :index, :show]
       post '/login', to: 'auth#login'
+      get 'me', to: 'users#me'
+      put 'me', to: 'users#update' # 👈 Add this line
+      devise_for :users, path: '', path_names: {
+      sign_in: 'login',
+      sign_out: 'logout'
+    }, controllers: {
+      sessions: 'api/v1/sessions'
+    }
     end
   end
   

@@ -28,9 +28,13 @@ gem "jbuilder"
 
 gem 'devise'
 
+gem 'devise-jwt'
+
 gem 'tailwindcss-rails'
 
 gem 'image_processing', '~> 1.2'
+
+gem 'rack-cors', require: 'rack/cors'
 
 
 
