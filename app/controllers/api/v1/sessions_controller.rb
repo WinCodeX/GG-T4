@@ -1,5 +1,7 @@
 class Api::V1::SessionsController < Devise::SessionsController
     respond_to :json
+
+    before_action :authenticate_user!
   
     private
   

@@ -1,6 +1,7 @@
 class Api::V1::UsersController < ApplicationController
     include Rails.application.routes.url_helpers
     before_action :authenticate_user!
+    before_action :set_current_user
   
     def me
       render json: {
@@ -25,7 +26,12 @@ class Api::V1::UsersController < ApplicationController
         render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
       end
     end
-  
+    private
+
+    def set_current_user
+      @current_user = User.find_by(id: session[:user_id]) || current_user
+      render json: { error: 'User not found' }, status: :not_found unless @current_user
+    end
     private
   
     def user_params

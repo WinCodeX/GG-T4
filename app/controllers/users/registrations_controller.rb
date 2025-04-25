@@ -30,7 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # app/controllers/users/registrations_controller.rb
-  before_action :configure_permitted_parameters
+  before_action :configure_permitted_parameters, only: [:create, :update]
   def remove_avatar
     current_user.avatar.purge_later
     redirect_to edit_user_registration_path, notice: "Avatar removed."

@@ -9,3 +9,18 @@
 #   end
 User.create!(email: "admin@test.com", password: "password123", password_confirmation: "password123")
 User.create!(email: "glenwinterg970@gmail.com", password: "Leviathan@Xcode", password_confirmation: "Leviathan@Xcode")
+
+
+# Create Locations
+nairobi = Location.create!(name: "Nairobi", description: "Capital city of Kenya")
+mombasa = Location.create!(name: "Mombasa", description: "Coastal city of Kenya")
+
+# Create Areas under Locations
+Area.create!(name: "CBD", location: nairobi, description: "Central Business District of Nairobi")
+Area.create!(name: "Westlands", location: nairobi, description: "Commercial district")
+Area.create!(name: "Nyali", location: mombasa, description: "Residential and commercial area in Mombasa")
+
+CourierService.create!(name: "G4S", description: "G4S Courier Services across Kenya")
+CourierService.create!(name: "Wells Fargo", description: "Secure and fast courier solutions")
+CourierService.create!(name: "Fargo Courier", description: "Courier services nationwide")
+CourierService.create!(name: "Other", description: "Manual input for preferred courier")

@@ -36,6 +36,7 @@ gem 'image_processing', '~> 1.2'
 
 gem 'rack-cors', require: 'rack/cors'
 
+gem 'aasm'
 
 
 # Use Redis adapter to run Action Cable in production
