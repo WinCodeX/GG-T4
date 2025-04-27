@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'packages/create'
   devise_for :users, controllers: {
   registrations: "accounts/registrations"
 }
@@ -39,15 +40,11 @@ end
       post '/login', to: 'auth#login'
       get 'me', to: 'users#me'
       put 'me', to: 'users#update' # 👈 Add this line
-      devise_for :users, path: '', path_names: {
-      sign_in: 'login',
-      sign_out: 'logout'
-    }, controllers: {
-      sessions: 'api/v1/sessions'
-    }
+    # Removed redundant devise_for :users to avoid conflicts
     end
   end
-  
+
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
