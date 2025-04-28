@@ -8,19 +8,21 @@ bundle install
 # ./bin/rails assets:clean
 
 echo "=== Dropping and Creating Database ==="
-bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=1 || true
-bundle exec rake db:create
+bundle exec rails db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=1 || true
+bundle exec rails db:create
 
 echo "=== Running Migrations Step-by-Step ==="
 
-bundle exec rake db:migrate:up VERSION=20250425192850  # agents
-bundle exec rake db:migrate:up VERSION=20250425192851  # locations
-bundle exec rake db:migrate:up VERSION=20250425192852  # areas
-bundle exec rake db:migrate:up VERSION=20250425192853  # courier_services
-bundle exec rake db:migrate:up VERSION=20250425192854  # packages
+bundle exec rails db:migrate:up VERSION=20250425192850  # agents
+bundle exec rails db:migrate:up VERSION=20250425192851  # locations
+bundle exec rails db:migrate:up VERSION=20250425192852  # areas
+bundle exec rails db:migrate:up VERSION=20250425192853  # courier_services
+bundle exec rails db:migrate:up VERSION=20250425192854  # packages
 
 echo "=== Precompiling Assets ==="
 bundle exec rails assets:precompile
 bundle exec rails assets:clean
 
 echo "=== Build Complete Successfully ==="
+
+#  bundle install; bundle exec rails assets:precompile; bundle exec rails assets:clean;
