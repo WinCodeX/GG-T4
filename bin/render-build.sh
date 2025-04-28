@@ -7,9 +7,9 @@ bundle install
 # ./bin/rails assets:precompile
 # ./bin/rails assets:clean
 
-echo "=== Dropping and Creating Database ==="
-bundle exec rails db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=1 || true
-bundle exec rails db:create
+# echo "=== Dropping and Creating Database ==="
+# bundle exec rails db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=1 || true
+# bundle exec rails db:create
 
 echo "=== Running Migrations Step-by-Step ==="
 
