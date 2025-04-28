@@ -13,11 +13,11 @@ bundle exec rails db:create
 
 echo "=== Running Migrations Step-by-Step ==="
 
-bundle exec rails db:migrate:up VERSION=20250425192850  # agents
-bundle exec rails db:migrate:up VERSION=20250425192851  # locations
-bundle exec rails db:migrate:up VERSION=20250425192852  # areas
-bundle exec rails db:migrate:up VERSION=20250425192853  # courier_services
-bundle exec rails db:migrate:up VERSION=20250425192854  # packages
+bundle exec rails db:migrate:up VERSION=20250425200130   # agents
+bundle exec rails db:migrate:up VERSION=20250425194436  # locations
+bundle exec rails db:migrate:up VERSION=20250425193518  # areas
+bundle exec rails db:migrate:up VERSION=20250425201824   # courier_services
+bundle exec rails db:migrate:up VERSION=20250425192853   # packages
 
 echo "=== Precompiling Assets ==="
 bundle exec rails assets:precompile
