@@ -7,9 +7,8 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-#User.create!(email: "admin@test.com", password: "password123", password_confirmation: "password123")
-#User.create!(email: "glenwinterg970@gmail.com", password: "Leviathan@Xcode", password_confirmation: "Leviathan@Xcode")
-
+User.create!(email: "admin@test.com", password: "password123", password_confirmation: "password123")
+User.create!(email: "glenwinterg970@gmail.com", password: "Leviathan@Xcode", password_confirmation: "Leviathan@Xcode")
 
 # Create Locations
 nairobi = Location.create!(name: "Nairobi", description: "Capital city of Kenya")

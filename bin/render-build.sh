@@ -13,11 +13,14 @@ bundle install
 
 echo "=== Running Migrations Step-by-Step ==="
 
-bundle exec rails db:migrate:up VERSION=20250425200130   # agents
-bundle exec rails db:migrate:up VERSION=20250425194436  # locations
-bundle exec rails db:migrate:up VERSION=20250425193518  # areas
+bundle exec rails db:migrate:up VERSION=20250425200130   # locations
+bundle exec rails db:migrate:up VERSION=20250425194436  #areas
+bundle exec rails db:migrate:up VERSION=20250425192850  # agents
 bundle exec rails db:migrate:up VERSION=20250425201824   # courier_services
 bundle exec rails db:migrate:up VERSION=20250425192853   # packages
+
+echo "=== Seeding Test Data ==="
+bundle exec rails db:seed
 
 echo "=== Precompiling Assets ==="
 bundle exec rails assets:precompile
