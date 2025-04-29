@@ -302,16 +302,18 @@ export default class extends Controller {
   }
 
 submitForm() {
-  // Build the real form data payload
-  const formData = new FormData()
+  const submitButton = this.stepContentTarget.querySelector("button[data-action='click->create-package#submitForm']")
+  submitButton.disabled = true
+  submitButton.textContent = "Submitting..."
 
+  const formData = new FormData()
   for (const key in this.formData) {
     if (this.formData.hasOwnProperty(key)) {
       formData.append(`package[${key}]`, this.formData[key])
     }
   }
 
-  fetch('/packages', { // Make sure this matches your Rails `packages#create` route
+  fetch('/packages', {
     method: 'POST',
     headers: {
       'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -329,11 +331,13 @@ submitForm() {
     console.log("Package created successfully:", data)
     alert("Package created successfully!")
     this.closeModal()
-    // Optionally redirect or reset form
   })
   .catch(error => {
     console.error("Error creating package:", error)
     alert("Failed to create package. Please try again.")
   })
-}
+  .finally(() => {
+    submitButton.disabled = false
+    submitButton.textContent = "Submit Package"
+  })
 }
