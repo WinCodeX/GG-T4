@@ -7,4 +7,4 @@ class PackagesController < ApplicationController
   else
     render json: { errors: @package.errors.full_messages }, status: :unprocessable_entity
   end
-end
+
