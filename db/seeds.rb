@@ -22,7 +22,7 @@
 #CourierService.create!(name: "G4S", description: "G4S Courier Services across Kenya")
 #CourierService.create!(name: "Wells Fargo", description: "Secure and fast courier solutions")
 #CourierService.create!(name: "Fargo Courier", description: "Courier services nationwide")
-CourierService.create!(name: "Other", description: "Manual input for preferred courier")
+#CourierService.create!(name: "Other", description: "Manual input for preferred courier")
 
 
 # ==== Create Locations ====
@@ -52,9 +52,9 @@ end
 # ==== Create Dummy User (for Agents) ====
 
 #user = User.find_or_create_by!(email: "admin@example.com") do |u|
-  u.password = "password"
-  u.password_confirmation = "password"
-end
+  #u.password = "password"
+  #u.password_confirmation = "password"
+#end
 
 # ==== Create Agents ====
 
