@@ -58,32 +58,28 @@ end
 
 # ==== Create Agents ====
 
-Agent.create!([
-  {
-    name: "Moonlit Agent",
-    phone: "0712345678",
-    email: "moonlit@example.com",
-    location: "nairobi",
-    area: "cbd",
-    status: "active",
-    
-  },
-  {
-    name: "Sunset Agent",
-    phone: "0722333444",
-    email: "sunset@example.com",
-    location: "nairobi",
-    area: "westlands",
-    status: "active",
-    
-  },
-  {
-    name: "Coastal Breeze Agent",
-    phone: "0733444555",
-    email: "coastal@example.com",
-    location: "mombasa",
-    area: "nyali",
-    status: "active",
-    
-  }
-])
+# ==== Create Agents ====
+
+Agent.find_or_create_by!(email: "moonlit@example.com") do |agent|
+  agent.name = "Moonlit Agent"
+  agent.phone = "0712345678"
+  agent.location = nairobi
+  agent.area = cbd
+  agent.status = "active"
+end
+
+Agent.find_or_create_by!(email: "sunset@example.com") do |agent|
+  agent.name = "Sunset Agent"
+  agent.phone = "0722333444"
+  agent.location = nairobi
+  agent.area = westlands
+  agent.status = "active"
+end
+
+Agent.find_or_create_by!(email: "coastal@example.com") do |agent|
+  agent.name = "Coastal Breeze Agent"
+  agent.phone = "0733444555"
+  agent.location = mombasa
+  agent.area = nyali
+  agent.status = "active"
+end
