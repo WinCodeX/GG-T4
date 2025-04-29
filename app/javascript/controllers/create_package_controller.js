@@ -300,4 +300,40 @@ export default class extends Controller {
 
     return 0
   }
+
+submitForm() {
+  // Build the real form data payload
+  const formData = new FormData()
+
+  for (const key in this.formData) {
+    if (this.formData.hasOwnProperty(key)) {
+      formData.append(`package[${key}]`, this.formData[key])
+    }
+  }
+
+  fetch('/packages', { // Make sure this matches your Rails `packages#create` route
+    method: 'POST',
+    headers: {
+      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    },
+    body: formData
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json()
+    } else {
+      throw new Error("Package creation failed")
+    }
+  })
+  .then(data => {
+    console.log("Package created successfully:", data)
+    alert("Package created successfully!")
+    this.closeModal()
+    // Optionally redirect or reset form
+  })
+  .catch(error => {
+    console.error("Error creating package:", error)
+    alert("Failed to create package. Please try again.")
+  })
+}
 }
