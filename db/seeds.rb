@@ -23,3 +23,67 @@ CourierService.create!(name: "G4S", description: "G4S Courier Services across Ke
 CourierService.create!(name: "Wells Fargo", description: "Secure and fast courier solutions")
 CourierService.create!(name: "Fargo Courier", description: "Courier services nationwide")
 CourierService.create!(name: "Other", description: "Manual input for preferred courier")
+
+
+# ==== Create Locations ====
+
+nairobi = Location.find_or_create_by!(name: "Nairobi") do |loc|
+  loc.description = "Capital city of Kenya"
+end
+
+mombasa = Location.find_or_create_by!(name: "Mombasa") do |loc|
+  loc.description = "Coastal city of Kenya"
+end
+
+# ==== Create Areas ====
+
+cbd = Area.find_or_create_by!(name: "CBD", location: nairobi) do |area|
+  area.description = "Central Business District of Nairobi"
+end
+
+westlands = Area.find_or_create_by!(name: "Westlands", location: nairobi) do |area|
+  area.description = "Commercial district"
+end
+
+nyali = Area.find_or_create_by!(name: "Nyali", location: mombasa) do |area|
+  area.description = "Residential and commercial area in Mombasa"
+end
+
+# ==== Create Dummy User (for Agents) ====
+
+user = User.find_or_create_by!(email: "admin@example.com") do |u|
+  u.password = "password"
+  u.password_confirmation = "password"
+end
+
+# ==== Create Agents ====
+
+Agent.create!([
+  {
+    name: "Moonlit Agent",
+    phone: "0712345678",
+    email: "moonlit@example.com",
+    location: "nairobi",
+    area: "cbd",
+    status: "active",
+    user_id: "user.id"
+  },
+  {
+    name: "Sunset Agent",
+    phone: "0722333444",
+    email: "sunset@example.com",
+    location: "nairobi",
+    area: "westlands",
+    status: "active",
+    user_id: "user.id"
+  },
+  {
+    name: "Coastal Breeze Agent",
+    phone: "0733444555",
+    email: "coastal@example.com",
+    location: "mombasa",
+    area: "nyali",
+    status: "active",
+    user_id: "user.id"
+  }
+])
