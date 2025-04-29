@@ -22,7 +22,7 @@
 #CourierService.create!(name: "G4S", description: "G4S Courier Services across Kenya")
 #CourierService.create!(name: "Wells Fargo", description: "Secure and fast courier solutions")
 #CourierService.create!(name: "Fargo Courier", description: "Courier services nationwide")
-#CourierService.create!(name: "Other", description: "Manual input for preferred courier")
+#CourierService.create!(name: "Other", description: #"Manual input for preferred courier")
 
 
 # ==== Create Locations ====
