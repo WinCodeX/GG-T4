@@ -8,6 +8,8 @@ devise_scope :user do
   delete 'users/remove_avatar', to: 'accounts/registrations#remove_avatar', as: :remove_avatar
 end
 
+resources :packages, only: [:new, :create, :index, :show]
+
   root "home#index"
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
