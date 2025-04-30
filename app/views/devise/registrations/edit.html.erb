@@ -70,7 +70,7 @@
 </div><!-- ✅ Avatar Confirmation Modal --><div id="avatarConfirmModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
   <div class="bg-[#1e1e2f] text-[#f8f8f2] p-6 rounded-xl shadow-xl w-80 text-center">
     <p class="mb-4 text-sm text-gray-300">Confirm new avatar?</p>
-    <img id="modalAvatarPreview" class="rounded-full h-24 w-24 mx-auto object-cover border border-gray-600 mb-4" /><%= form_with url: custom_account_update_path, method: :patch, multipart: true, local: true, html: { id: "avatarUploadForm" } do |f| %>
+    <img id="modalAvatarPreview" class="rounded-full h-24 w-24 mx-auto object-cover border border-gray-600 mb-4" /><%= form_with url: update_avatar_path, method: :patch, multipart: true, local: true, html: { id: "avatarUploadForm" } do |f| %>
   <%= file_field_tag "user[avatar]", accept: "image/*", id: "modalAvatarInput", class: "hidden" %>
   <div class="space-x-4 mt-4">
     <button type="submit" id="confirmAvatarUpload" class="bg-green-600 px-4 py-1 rounded hover:bg-green-500 text-white">
