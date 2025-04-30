@@ -18,5 +18,34 @@
   <%= render "shared/nav" %>
 
     <%= yield %>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const messages = {
+      notice: "<%= j flash[:notice] %>",
+      alert: "<%= j flash[:alert] %>",
+      error: "<%= j flash[:error] %>"
+    };
+
+    const baseClass =
+      "px-4 py-3 rounded-xl shadow-lg text-sm text-white w-72 max-w-full transition transform duration-300 animate-fade-in";
+
+    const typeMap = {
+      notice: "bg-green-600 border-l-4 border-green-400",
+      alert: "bg-yellow-600 border-l-4 border-yellow-400",
+      error: "bg-red-600 border-l-4 border-red-400"
+    };
+
+    Object.entries(messages).forEach(([type, message]) => {
+      if (message) {
+        const toast = document.createElement("div");
+        toast.className = `${baseClass} ${typeMap[type] || typeMap.notice}`;
+        toast.innerText = message;
+        document.getElementById("toast-container").appendChild(toast);
+
+        setTimeout(() => toast.remove(), 4000);
+      }
+    });
+  });
+</script>
   </body>
 </html>
