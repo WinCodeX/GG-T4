@@ -22,8 +22,8 @@
   document.addEventListener("DOMContentLoaded", () => {
     const messages = {
       notice: "<%= j(flash[:notice].to_s.gsub('"', '\"')) %>",
-alert: "<%= j(flash[:alert].to_s.gsub('"', '\"')) %>",
-error: "<%= j(flash[:error].to_s.gsub('"', '\"')) %>"
+      alert: "<%= j(flash[:alert].to_s.gsub('"', '\"')) %>",
+      error: "<%= j(flash[:error].to_s.gsub('"', '\"')) %>"
     };
 
     const baseClass =
@@ -36,12 +36,11 @@ error: "<%= j(flash[:error].to_s.gsub('"', '\"')) %>"
     };
 
     Object.entries(messages).forEach(([type, message]) => {
-      if (message) {
+      if (message && message.trim() !== "") {
         const toast = document.createElement("div");
         toast.className = `${baseClass} ${typeMap[type] || typeMap.notice}`;
         toast.innerText = message;
         document.getElementById("toast-container").appendChild(toast);
-
         setTimeout(() => toast.remove(), 4000);
       }
     });
