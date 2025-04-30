@@ -1,8 +1,7 @@
 <!-- ✨ Updated Edit Profile Layout - Dracula Theme -->
-
 <div class="min-h-screen flex items-center justify-center bg-[#282a36] text-[#f8f8f2]">
   <div class="bg-[#1e1e2f] p-8 rounded-3xl shadow-lg w-full max-w-md relative">
-    <h2 class="text-3xl font-bold text-center text-[#f8f8f2] mb-2">Edit Profile</h2>
+    <h2 class="text-3xl font-bold text-center mb-2">Edit Profile</h2>
     <p class="text-center text-gray-400 text-sm mb-6">Update your account information</p>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
@@ -25,7 +24,6 @@
           <p class="text-xs mt-1 text-purple-400">Click to change avatar</p>
         </div>
 
-        <!-- 🧩 Hidden Input (Properly Form-Bound) -->
         <%= f.file_field :avatar, accept: "image/*", id: "avatarInput", class: "hidden" %>
       </div>
 
@@ -44,19 +42,17 @@
       <!-- 🔒 Password Update Notice -->
       <p class="text-sm text-gray-500 mb-2">Leave password fields blank if you don't want to change them</p>
 
-      <!-- 🔒 Password -->
+      <!-- 🔒 Password Fields -->
       <div class="mb-4">
         <%= f.label :password, class: "block text-sm text-gray-400 mb-1" %>
         <%= f.password_field :password, autocomplete: "new-password", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-gray-600 focus:ring-2 focus:ring-[#9f7aea]" %>
       </div>
 
-      <!-- 🔒 Password Confirmation -->
       <div class="mb-4">
         <%= f.label :password_confirmation, class: "block text-sm text-gray-400 mb-1" %>
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-gray-600 focus:ring-2 focus:ring-[#9f7aea]" %>
       </div>
 
-      <!-- 🔒 Current Password -->
       <div class="mb-4">
         <%= f.label :current_password, "Current Password", class: "block text-sm text-gray-400 mb-1" %>
         <%= f.password_field :current_password, autocomplete: "current-password", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-gray-600 focus:ring-2 focus:ring-[#9f7aea]" %>
@@ -76,10 +72,22 @@
   </div>
 </div>
 
-<!-- 🧠 Avatar Preview Script (no changes needed) -->
+<!-- ✅ Avatar Confirmation Modal -->
+<div id="avatarConfirmModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-[#1e1e2f] text-[#f8f8f2] p-6 rounded-xl shadow-xl w-80 text-center">
+    <p class="mb-4 text-sm text-gray-300">Confirm new avatar?</p>
+    <img id="modalAvatarPreview" class="rounded-full h-24 w-24 mx-auto object-cover border border-gray-600 mb-4" />
+    <div class="space-x-4">
+      <button id="confirmAvatarUpload" class="bg-green-600 px-4 py-1 rounded hover:bg-green-500 text-white">Yes</button>
+      <button id="cancelAvatarUpload" class="bg-gray-600 px-4 py-1 rounded hover:bg-gray-500 text-white">No</button>
+    </div>
+  </div>
+</div>
+
+<!-- 🧠 Avatar Preview Script + AJAX Upload -->
 <script>
   (() => {
-    let selectedAvatarBlob = null;
+    let selectedFile = null;
 
     window.openFileSelector = function() {
       document.getElementById("avatarInput").click();
@@ -87,17 +95,50 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       const avatarInput = document.getElementById("avatarInput");
+      const modal = document.getElementById("avatarConfirmModal");
+      const modalImg = document.getElementById("modalAvatarPreview");
+      const avatarPreview = document.getElementById("avatarPreview");
+
       avatarInput.addEventListener("change", function () {
         const file = this.files[0];
-        const preview = document.getElementById("avatarPreview");
+        if (!file) return;
+        selectedFile = file;
 
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            preview.src = e.target.result;
-          };
-          reader.readAsDataURL(file);
-        }
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          modalImg.src = e.target.result;
+          modal.classList.remove("hidden");
+        };
+        reader.readAsDataURL(file);
+      });
+
+      document.getElementById("cancelAvatarUpload").addEventListener("click", () => {
+        selectedFile = null;
+        modal.classList.add("hidden");
+      });
+
+      document.getElementById("confirmAvatarUpload").addEventListener("click", () => {
+        if (!selectedFile) return;
+
+        const formData = new FormData();
+        formData.append("user[avatar]", selectedFile);
+
+        fetch("/users", {
+          method: "PATCH",
+          headers: {
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+          },
+          body: formData
+        })
+        .then(res => res.ok ? res.json() : Promise.reject(res))
+        .then(() => {
+          avatarPreview.src = modalImg.src;
+          modal.classList.add("hidden");
+          selectedFile = null;
+        })
+        .catch(err => {
+          console.error("Avatar upload failed", err);
+        });
       });
     });
   })();
