@@ -21,9 +21,9 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const messages = {
-      notice: "<%= j flash[:notice] %>",
-      alert: "<%= j flash[:alert] %>",
-      error: "<%= j flash[:error] %>"
+      notice: "<%= j(flash[:notice].to_s.gsub('"', '\"')) %>",
+alert: "<%= j(flash[:alert].to_s.gsub('"', '\"')) %>",
+error: "<%= j(flash[:error].to_s.gsub('"', '\"')) %>"
     };
 
     const baseClass =
