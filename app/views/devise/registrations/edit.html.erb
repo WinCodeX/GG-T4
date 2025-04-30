@@ -131,7 +131,7 @@
         const formData = new FormData();
         formData.append("user[avatar]", selectedFile);
 
-        fetch("/users", {
+        fetch("/accounts", {
           method: "PATCH",
           headers: {
             "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
