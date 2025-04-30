@@ -3,6 +3,12 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
   registrations: "accounts/registrations"
 }
+
+# Explicit route override to handle PATCH /accounts
+as :account do
+  patch '/accounts', to: 'accounts/registrations#update', as: :custom_account_update
+end
+
 devise_scope :user do
   patch 'users/update_avatar', to: 'accounts/registrations#update_avatar', as: :update_avatar
   delete 'users/remove_avatar', to: 'accounts/registrations#remove_avatar', as: :remove_avatar
