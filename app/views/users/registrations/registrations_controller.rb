@@ -1,21 +1,29 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-    protected
-  
-    # Only ask for password if sensitive fields are 
-def update
-  self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+  protected
 
-  if account_update_params[:password].present?
-    result = resource.update_with_password(account_update_params)
-  else
-    result = resource.update_without_password(account_update_params.except(:current_password))
+  # Allow users to update without current password unless changing email or password
+  def update_resource(resource, params)
+    if sensitive_update?(params)
+      super  # Requires current_password
+    else
+      resource.update_without_password(params.except(:current_password))
+    end
   end
 
-  if result
-    set_flash_message :notice, :updated
-    respond_with resource, location: after_update_path_for(resource)
-  else
-    clean_up_passwords resource
-    render :edit, status: :unprocessable_entity
+  # Determine if sensitive credentials are being changed
+  def sensitive_update?(params)
+    params[:password].present? || params[:email].present?
+  end
+
+  # Explicitly whitelist allowed fields
+  def account_update_params
+    params.require(:user).permit(
+      :username,
+      :email,
+      :avatar,
+      :password,
+      :password_confirmation,
+      :current_password
+    )
   end
 end
