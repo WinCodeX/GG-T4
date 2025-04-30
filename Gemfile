@@ -39,9 +39,9 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'aasm'
 
 
-#gem 'redis'
-#gem 'redis-rails' # for caching
-#gem 'sidekiq'     # for background jobs (optional)
+gem 'redis'
+gem 'redis-rails' # for caching
+gem 'sidekiq'     # for background jobs (optional)
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
