@@ -1,90 +1,91 @@
-<!-- ✨ Updated Edit Profile Layout - Dracula Theme -->
-<div class="min-h-screen flex items-center justify-center bg-[#282a36] text-[#f8f8f2]">
+<!-- ✨ Updated Edit Profile Layout - Dracula Theme with Native Avatar Upload --><div class="min-h-screen flex items-center justify-center bg-[#282a36] text-[#f8f8f2]">
   <div class="bg-[#1e1e2f] p-8 rounded-3xl shadow-lg w-full max-w-md relative">
     <h2 class="text-3xl font-bold text-center mb-2">Edit Profile</h2>
-    <p class="text-center text-gray-400 text-sm mb-6">Update your account information</p>
+    <p class="text-center text-gray-400 text-sm mb-6">Update your account information</p><%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
-
-      <!-- 🔁 Avatar Preview + Trigger -->
-      <div class="mb-6 text-center">
-        <label class="block text-sm font-medium text-gray-400 mb-2">Current Avatar</label>
-        <div class="cursor-pointer inline-block" onclick="openFileSelector()">
-          <% begin %>
-            <% if resource.persisted? && resource.avatar.attached? && resource.avatar.blob.present? %>
-              <%= image_tag resource.avatar.variant(resize_to_fill: [96, 96]), id: "avatarPreview", class: "mx-auto rounded-full h-24 w-24 object-cover transition hover:opacity-70" %>
-            <% else %>
-              <% name = resource.username || resource.email&.split('@')&.first || "user" %>
-              <%= image_tag "https://ui-avatars.com/api/?name=#{ERB::Util.url_encode(name)}&background=6b46c1&color=fff&size=128", id: "avatarPreview", class: "mx-auto rounded-full h-24 w-24 object-cover transition hover:opacity-70" %>
-            <% end %>
-          <% rescue => e %>
-            <% name = resource.username || "user" %>
-            <%= image_tag "https://ui-avatars.com/api/?name=#{ERB::Util.url_encode(name)}&background=6b46c1&color=fff&size=128", id: "avatarPreview", class: "mx-auto rounded-full h-24 w-24 object-cover" %>
-          <% end %>
-          <p class="text-xs mt-1 text-purple-400">Click to change avatar</p>
-        </div>
-
-        <%= f.file_field :avatar, accept: "image/*", id: "avatarInput", class: "hidden" %>
-      </div>
-
-      <!-- 🔤 Username -->
-      <div class="mb-4">
-        <%= f.label :username, class: "block text-sm text-gray-400 mb-1" %>
-        <%= f.text_field :username, autocomplete: "username", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-[#6b46c1] focus:ring-2 focus:ring-[#9f7aea]" %>
-      </div>
-
-      <!-- 📧 Email -->
-      <div class="mb-4">
-        <%= f.label :email, class: "block text-sm text-gray-400 mb-1" %>
-        <%= f.email_field :email, autocomplete: "email", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-[#6b46c1] focus:ring-2 focus:ring-[#9f7aea]" %>
-      </div>
-
-      <!-- 🔒 Password Update Notice -->
-      <p class="text-sm text-gray-500 mb-2">Leave password fields blank if you don't want to change them</p>
-
-      <div class="mb-4">
-        <%= f.label :password, class: "block text-sm text-gray-400 mb-1" %>
-        <%= f.password_field :password, autocomplete: "new-password", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-gray-600 focus:ring-2 focus:ring-[#9f7aea]" %>
-      </div>
-
-      <div class="mb-4">
-        <%= f.label :password_confirmation, class: "block text-sm text-gray-400 mb-1" %>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-gray-600 focus:ring-2 focus:ring-[#9f7aea]" %>
-      </div>
-
-      <div class="mb-4">
-        <%= f.label :current_password, "Current Password", class: "block text-sm text-gray-400 mb-1" %>
-        <%= f.password_field :current_password, autocomplete: "current-password", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-gray-600 focus:ring-2 focus:ring-[#9f7aea]" %>
-      </div>
-
-      <!-- 💾 Save Button -->
-      <%= f.submit "Save Changes", class: "w-full py-2 rounded-xl bg-[#6b46c1] hover:bg-[#9f7aea] text-white transition" %>
-
-    <% end %>
-
-    <!-- ❌ Account Deletion -->
-    <div class="text-center mt-6">
-      <%= link_to "Cancel my account", registration_path(resource_name),
-          data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete your account?" },
-          class: "text-red-400 text-sm hover:underline" %>
+  <!-- 🔁 Avatar Preview + Trigger -->
+  <div class="mb-6 text-center">
+    <label class="block text-sm font-medium text-gray-400 mb-2">Current Avatar</label>
+    <div class="cursor-pointer inline-block" onclick="openFileSelector()">
+      <% begin %>
+        <% if resource.persisted? && resource.avatar.attached? && resource.avatar.blob.present? %>
+          <%= image_tag resource.avatar.variant(resize_to_fill: [96, 96]), id: "avatarPreview", class: "mx-auto rounded-full h-24 w-24 object-cover transition hover:opacity-70" %>
+        <% else %>
+          <% name = resource.username || resource.email&.split('@')&.first || "user" %>
+          <%= image_tag "https://ui-avatars.com/api/?name=#{ERB::Util.url_encode(name)}&background=6b46c1&color=fff&size=128", id: "avatarPreview", class: "mx-auto rounded-full h-24 w-24 object-cover transition hover:opacity-70" %>
+        <% end %>
+      <% rescue => e %>
+        <% name = resource.username || "user" %>
+        <%= image_tag "https://ui-avatars.com/api/?name=#{ERB::Util.url_encode(name)}&background=6b46c1&color=fff&size=128", id: "avatarPreview", class: "mx-auto rounded-full h-24 w-24 object-cover" %>
+      <% end %>
+      <p class="text-xs mt-1 text-purple-400">Click to change avatar</p>
     </div>
+
+    <%= f.file_field :avatar, accept: "image/*", id: "avatarInput", class: "hidden" %>
   </div>
+
+  <!-- 🔤 Username -->
+  <div class="mb-4">
+    <%= f.label :username, class: "block text-sm text-gray-400 mb-1" %>
+    <%= f.text_field :username, autocomplete: "username", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-[#6b46c1] focus:ring-2 focus:ring-[#9f7aea]" %>
+  </div>
+
+  <!-- 📧 Email -->
+  <div class="mb-4">
+    <%= f.label :email, class: "block text-sm text-gray-400 mb-1" %>
+    <%= f.email_field :email, autocomplete: "email", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-[#6b46c1] focus:ring-2 focus:ring-[#9f7aea]" %>
+  </div>
+
+  <!-- 🔐 Password Update Notice -->
+  <p class="text-sm text-gray-500 mb-2">Leave password fields blank if you don't want to change them</p>
+
+  <div class="mb-4">
+    <%= f.label :password, class: "block text-sm text-gray-400 mb-1" %>
+    <%= f.password_field :password, autocomplete: "new-password", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-gray-600 focus:ring-2 focus:ring-[#9f7aea]" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :password_confirmation, class: "block text-sm text-gray-400 mb-1" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-gray-600 focus:ring-2 focus:ring-[#9f7aea]" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :current_password, "Current Password", class: "block text-sm text-gray-400 mb-1" %>
+    <%= f.password_field :current_password, autocomplete: "current-password", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-gray-600 focus:ring-2 focus:ring-[#9f7aea]" %>
+  </div>
+
+  <!-- 📂 Save Button -->
+  <%= f.submit "Save Changes", class: "w-full py-2 rounded-xl bg-[#6b46c1] hover:bg-[#9f7aea] text-white transition" %>
+
+<% end %>
+
+<!-- ❌ Account Deletion -->
+<div class="text-center mt-6">
+  <%= link_to "Cancel my account", registration_path(resource_name),
+      data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete your account?" },
+      class: "text-red-400 text-sm hover:underline" %>
 </div>
 
-<!-- ✅ Avatar Confirmation Modal -->
-<div id="avatarConfirmModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
+  </div>
+</div><!-- ✅ Avatar Confirmation Modal --><div id="avatarConfirmModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
   <div class="bg-[#1e1e2f] text-[#f8f8f2] p-6 rounded-xl shadow-xl w-80 text-center">
     <p class="mb-4 text-sm text-gray-300">Confirm new avatar?</p>
-    <img id="modalAvatarPreview" class="rounded-full h-24 w-24 mx-auto object-cover border border-gray-600 mb-4" />
-    <div class="space-x-4">
-      <button id="confirmAvatarUpload" class="bg-green-600 px-4 py-1 rounded hover:bg-green-500 text-white">Yes</button>
-      <button id="cancelAvatarUpload" class="bg-gray-600 px-4 py-1 rounded hover:bg-gray-500 text-white">No</button>
-    </div>
+    <img id="modalAvatarPreview" class="rounded-full h-24 w-24 mx-auto object-cover border border-gray-600 mb-4" /><%= form_with url: custom_avatar_update_path, method: :patch, multipart: true, local: true, html: { id: "avatarUploadForm" } do |f| %>
+  <%= hidden_field_tag "user[avatar]", "", id: "hiddenAvatarField" %>
+  <div class="space-x-4 mt-4">
+    <button type="submit" id="confirmAvatarUpload" class="bg-green-600 px-4 py-1 rounded hover:bg-green-500 text-white">
+      <span id="confirmAvatarText">Yes</span>
+      <svg id="avatarSavingSpinner" class="animate-spin h-4 w-4 inline ml-2 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+      </svg>
+    </button>
+    <button type="button" id="cancelAvatarUpload" class="bg-gray-600 px-4 py-1 rounded hover:bg-gray-500 text-white">No</button>
   </div>
-</div>
+<% end %>
 
-<!-- ✅ Avatar AJAX Upload with Toast + Loading -->
-<script>
+  </div>
+</div><script>
   (() => {
     let selectedFile = null;
 
@@ -92,81 +93,41 @@
     const modal = document.getElementById("avatarConfirmModal");
     const modalImg = document.getElementById("modalAvatarPreview");
     const avatarPreview = document.getElementById("avatarPreview");
-    const confirmBtn = document.getElementById("confirmAvatarUpload");
     const cancelBtn = document.getElementById("cancelAvatarUpload");
+    const avatarUploadForm = document.getElementById("avatarUploadForm");
+    const confirmText = document.getElementById("confirmAvatarText");
+    const spinner = document.getElementById("avatarSavingSpinner");
 
     window.openFileSelector = () => avatarInput.click();
 
-    document.addEventListener("DOMContentLoaded", () => {
-      avatarInput.addEventListener("change", function () {
-        const file = this.files[0];
-        if (!file) return;
+    avatarInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
 
-        selectedFile = file;
+      selectedFile = file;
 
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          modalImg.src = e.target.result;
-          modal.classList.remove("hidden");
-        };
-        reader.readAsDataURL(file);
-      });
-
-      cancelBtn.addEventListener("click", () => {
-        selectedFile = null;
-        modal.classList.add("hidden");
-      });
-
-      confirmBtn.addEventListener("click", () => {
-        if (!selectedFile) return;
-
-        confirmBtn.disabled = true;
-        confirmBtn.innerHTML = `
-          <svg class="animate-spin h-4 w-4 mr-1 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-          </svg> Saving...
-        `;
-
-        const formData = new FormData();
-        formData.append("account[avatar]", selectedFile);
-
-        fetch("/accounts", {
-          method: "PATCH",
-          headers: {
-            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-          },
-          body: formData
-        })
-        .then(res => res.ok ? res.json() : Promise.reject(res))
-        .then(() => {
-          avatarPreview.src = modalImg.src + "?t=" + new Date().getTime();
-          showToast("Avatar updated successfully", "success");
-          modal.classList.add("hidden");
-        })
-        .catch(() => {
-          showToast("Failed to update avatar", "error");
-        })
-        .finally(() => {
-          confirmBtn.disabled = false;
-          confirmBtn.innerText = "Yes";
-          selectedFile = null;
-        });
-      });
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        modalImg.src = e.target.result;
+        modal.classList.remove("hidden");
+      };
+      reader.readAsDataURL(file);
     });
 
-    function showToast(message, type = "success") {
-      const container = document.getElementById("toast-container");
-      if (!container) return;
+    cancelBtn.addEventListener("click", () => {
+      selectedFile = null;
+      modal.classList.add("hidden");
+    });
 
-      const toast = document.createElement("div");
-      const bg = type === "error" ? "bg-red-600 border-red-400" : "bg-green-600 border-green-400";
+    avatarUploadForm.addEventListener("submit", () => {
+      spinner.classList.remove("hidden");
+      confirmText.textContent = "Saving...";
 
-      toast.className = `text-white px-4 py-3 rounded-xl shadow-lg border-l-4 ${bg} mb-2 animate-fade-in`;
-      toast.textContent = message;
-
-      container.appendChild(toast);
-      setTimeout(() => toast.remove(), 4000);
-    }
+      setTimeout(() => {
+        modal.classList.add("hidden");
+        spinner.classList.add("hidden");
+        confirmText.textContent = "Yes";
+      }, 2000);
+    });
   })();
 </script>
