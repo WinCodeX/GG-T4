@@ -42,7 +42,6 @@
       <!-- 🔒 Password Update Notice -->
       <p class="text-sm text-gray-500 mb-2">Leave password fields blank if you don't want to change them</p>
 
-      <!-- 🔒 Password Fields -->
       <div class="mb-4">
         <%= f.label :password, class: "block text-sm text-gray-400 mb-1" %>
         <%= f.password_field :password, autocomplete: "new-password", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-gray-600 focus:ring-2 focus:ring-[#9f7aea]" %>
@@ -84,24 +83,25 @@
   </div>
 </div>
 
-<!-- 🧠 Avatar Preview Script + AJAX Upload -->
+<!-- ✅ Avatar AJAX Upload with Toast + Loading -->
 <script>
   (() => {
     let selectedFile = null;
 
-    window.openFileSelector = function() {
-      document.getElementById("avatarInput").click();
-    };
+    const avatarInput = document.getElementById("avatarInput");
+    const modal = document.getElementById("avatarConfirmModal");
+    const modalImg = document.getElementById("modalAvatarPreview");
+    const avatarPreview = document.getElementById("avatarPreview");
+    const confirmBtn = document.getElementById("confirmAvatarUpload");
+    const cancelBtn = document.getElementById("cancelAvatarUpload");
+
+    window.openFileSelector = () => avatarInput.click();
 
     document.addEventListener("DOMContentLoaded", () => {
-      const avatarInput = document.getElementById("avatarInput");
-      const modal = document.getElementById("avatarConfirmModal");
-      const modalImg = document.getElementById("modalAvatarPreview");
-      const avatarPreview = document.getElementById("avatarPreview");
-
       avatarInput.addEventListener("change", function () {
         const file = this.files[0];
         if (!file) return;
+
         selectedFile = file;
 
         const reader = new FileReader();
@@ -112,13 +112,21 @@
         reader.readAsDataURL(file);
       });
 
-      document.getElementById("cancelAvatarUpload").addEventListener("click", () => {
+      cancelBtn.addEventListener("click", () => {
         selectedFile = null;
         modal.classList.add("hidden");
       });
 
-      document.getElementById("confirmAvatarUpload").addEventListener("click", () => {
+      confirmBtn.addEventListener("click", () => {
         if (!selectedFile) return;
+
+        confirmBtn.disabled = true;
+        confirmBtn.innerHTML = `
+          <svg class="animate-spin h-4 w-4 mr-1 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+          </svg> Saving...
+        `;
 
         const formData = new FormData();
         formData.append("user[avatar]", selectedFile);
@@ -132,14 +140,33 @@
         })
         .then(res => res.ok ? res.json() : Promise.reject(res))
         .then(() => {
-          avatarPreview.src = modalImg.src;
+          avatarPreview.src = modalImg.src + "?t=" + new Date().getTime();
+          showToast("Avatar updated successfully", "success");
           modal.classList.add("hidden");
-          selectedFile = null;
         })
-        .catch(err => {
-          console.error("Avatar upload failed", err);
+        .catch(() => {
+          showToast("Failed to update avatar", "error");
+        })
+        .finally(() => {
+          confirmBtn.disabled = false;
+          confirmBtn.innerText = "Yes";
+          selectedFile = null;
         });
       });
     });
+
+    function showToast(message, type = "success") {
+      const container = document.getElementById("toast-container");
+      if (!container) return;
+
+      const toast = document.createElement("div");
+      const bg = type === "error" ? "bg-red-600 border-red-400" : "bg-green-600 border-green-400";
+
+      toast.className = `text-white px-4 py-3 rounded-xl shadow-lg border-l-4 ${bg} mb-2 animate-fade-in`;
+      toast.textContent = message;
+
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
   })();
 </script>
