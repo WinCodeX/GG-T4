@@ -22,6 +22,8 @@ bundle exec rails db:migrate:up VERSION=20250425192853   # packages
 echo "=== Seeding Test Data ==="
 bundle exec rails db:seed
 
+bin/rails db:migrate
+
 echo "=== Precompiling Assets ==="
 bundle exec rails assets:precompile
 bundle exec rails assets:clean
