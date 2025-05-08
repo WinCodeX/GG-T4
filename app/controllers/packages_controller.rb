@@ -9,6 +9,24 @@ class PackagesController < ApplicationController
     end
   end
 
+  def index
+    @packages = current_user.packages.order(created_at: :desc)
+  end
+
+  def track
+    @package = Package.find_by!(tracking_code: params[:tracking_code])
+  end
+  
+  def pay
+    @package = Package.find(params[:id])
+    # Show payment page or redirect to MPESA/etc
+  end
+  
+  def edit
+    @package = Package.find(params[:id])
+  end
+  
+
   private
 
   def package_params

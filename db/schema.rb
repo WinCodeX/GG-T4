@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_25_201824) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_04_190703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -90,7 +90,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_25_201824) do
     t.bigint "sender_agent_id", null: false
     t.bigint "receiver_agent_id"
     t.string "delivery_type", null: false
-    t.bigint "receiver_area_id", null: false
+    t.bigint "receiver_area_id"
     t.bigint "receiver_location_id", null: false
     t.string "exact_location"
     t.bigint "courier_service_id"

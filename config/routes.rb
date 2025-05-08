@@ -48,6 +48,16 @@ resources :packages, only: [:new, :create, :index, :show]
     end
   end
 
+   # Must include :index
+
+  resources :packages do
+    member do
+      get 'pay'  # payment logic
+    end
+  end
+  
+  get '/track/:tracking_code', to: 'packages#track', as: 'track_package'
+  
 
   # Defines the root path route ("/")
   # root "posts#index"

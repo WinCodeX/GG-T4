@@ -4,10 +4,10 @@ class Package < ApplicationRecord
   enum delivery_type: { door_delivery: 0, agent_pickup: 1, parcel_delivery: 2 }
   enum payment_status: { pending_unpaid: 0, pending: 1, paid: 2 }
 
-  belongs_to :receiver_area, class_name: "Area"
+  belongs_to :receiver_area, class_name: "Area", optional: true
   belongs_to :receiver_location, class_name: "Location"
   belongs_to :courier_service, optional: true
-  belongs_to :sender_agent, class_name: "Agent"
+  belongs_to :sender_agent, class_name: "Agent", optional: true
   belongs_to :receiver_agent, class_name: "Agent", optional: true
 
   validates :recipient_name, :recipient_phone, :delivery_type, :sender_agent, presence: true
@@ -48,6 +48,25 @@ class Package < ApplicationRecord
       transitions from: :dropped, to: :dispatched
     end
   end
+
+
+
+  with_options presence: true do
+    validates :recipient_name, :recipient_phone, :delivery_type, :sender_agent, :receiver_location
+  end
+  
+  with_options if: :door_delivery? do
+    validates :exact_location, :receiver_area, presence: true
+  end
+  
+  with_options if: :agent_pickup? do
+    validates :receiver_agent, presence: true
+  end
+  
+  with_options if: :parcel_delivery? do
+    validates :courier_service, :destination, presence: true
+  end
+  
 
   private
 

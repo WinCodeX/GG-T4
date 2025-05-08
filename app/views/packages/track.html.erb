@@ -1,0 +1,37 @@
+<div class="min-h-screen bg-[#0d0d0d] text-white p-6">
+
+  <h2 class="text-xl text-purple-300 font-semibold mb-2">
+    Pending Package
+  </h2>
+
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold"><%= @package.recipient_name %></h1>
+    <p class="text-gray-400 text-lg"><%= @package.exact_location || @package.receiver_location&.name %></p>
+  </div>
+
+  <div class="space-y-4 text-lg">
+    <div class="flex items-center gap-2">
+      <div class="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
+      <span>📦 <%= @package.package_status.humanize %></span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <div class="w-3 h-3 rounded-full bg-<%= @package.paid? ? 'green-400' : 'gray-500' %>"></div>
+      <span><%= @package.paid? ? "Paid" : "Unpaid" %></span>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <a href="/packages" class="block w-full bg-[#44475a] text-center py-3 rounded-md text-white hover:bg-purple-600 transition">
+      Track Order
+    </a>
+  </div>
+
+  <% unless @package.paid? %>
+    <div class="flex gap-2 mt-4">
+      <a href="<%= edit_package_path(@package) %>" class="flex-1 bg-gray-700 text-center py-2 rounded-md hover:bg-gray-600 transition">Edit</a>
+      <a href="<%= pay_package_path(@package) %>" class="flex-1 bg-green-500 text-center py-2 rounded-md hover:bg-green-400 transition text-white font-bold">Pay</a>
+    </div>
+  <% end %>
+
+</div>

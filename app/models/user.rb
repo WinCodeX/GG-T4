@@ -6,6 +6,8 @@ class User < ApplicationRecord
        authentication_keys: [:login],
        jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
 
+
+        has_many :packages, foreign_key: :sender_agent_id, class_name: "Package"
   has_one_attached :avatar
   enum role: { admin: 0, agent: 1, rider: 2, client: 3 }
 
