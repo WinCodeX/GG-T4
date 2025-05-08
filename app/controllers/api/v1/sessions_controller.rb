@@ -4,11 +4,8 @@ module Api
     class SessionsController < Devise::SessionsController
       respond_to :json
 
-      # mobile clients don't include a CSRF token
-      skip_before_action :verify_authenticity_token, raise: false
-
-      # don't require you to be logged in just to POST /login
-      skip_before_action :authenticate_user!, only: :create
+     skip_before_action :verify_authenticity_token, raise: false
+  skip_before_action :authenticate_user!, only: :create, raise: false
 
       # -------------------------------------------------------
       # POST /api/v1/login
