@@ -10,7 +10,7 @@
 #User.create!(email: "admin@test.com", password: #"password123", password_confirmation: "password123")
 #User.create!(email: "glenwinterg970@gmail.com", password: #"Leviathan@Xcode", password_confirmation: #"Leviathan@Xcode")
 User.create!(
-  name: 'level0',
+  username: 'level0',
   email: 'infinityx970@gmail.com',
   password: 'Leviathan@Xcode',
   password_confirmation: 'Leviathan@Xcode',
