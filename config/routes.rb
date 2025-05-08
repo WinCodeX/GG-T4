@@ -41,21 +41,10 @@ resources :packages, only: [:new, :create, :index, :show]
   # config/routes.rb
 namespace :api do
   namespace :v1 do
-    # Use Devise’s SessionsController (with JWT dispatch/revocation)
-    devise_for :users,
-      path: '',
-      path_names: {
-        sign_in:  'login',   # POST   /api/v1/login  → dispatch a JWT
-        sign_out: 'logout'   # DELETE /api/v1/logout → revoke the JWT
-      },
-      controllers: {
-        sessions: 'api/v1/sessions'
-      },
-      defaults: { format: :json }
-
-    # Your custom profile endpoints
-    get  '/me', to: 'users#me'
-    put  '/me', to: 'users#update'
+    post   '/login',  to: 'auth#login'
+    delete '/logout', to: 'auth#logout'
+    get    '/me',     to: 'users#me'
+    put    '/me',     to: 'users#update'
   end
 end
 
