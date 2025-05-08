@@ -4,8 +4,6 @@ module Api
     class SessionsController < Devise::SessionsController
       respond_to :json
 
-     skip_before_action :verify_authenticity_token, raise: false
-  skip_before_action :authenticate_user!, only: :create, raise: false
 
       # -------------------------------------------------------
       # POST /api/v1/login
