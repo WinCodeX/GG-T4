@@ -27,7 +27,7 @@
   <!-- 🔤 Username -->
   <div class="mb-4">
     <%= f.label :username, class: "block text-sm text-gray-400 mb-1" %>
-    <%= f.text_field :username, autocomplete: "username", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-[#6b46c1] focus:ring-2 focus:ring-[#9f7aea]" %>
+    <%= f.text_field :username, value: resource.username, autocomplete: "username", class: "w-full px-4 py-2 rounded-lg bg-[#282a36] border border-[#6b46c1] focus:ring-2 focus:ring-[#9f7aea]" %>
   </div>
 
   <!-- 📧 Email -->
