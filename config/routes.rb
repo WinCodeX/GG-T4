@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'packages/create'
   devise_for :users, controllers: {
-  registrations: "users/registrations"
+  registrations: "accounts/registrations"
 }
 
 
@@ -11,6 +11,10 @@ devise_scope :user do
 end
 
 resources :packages, only: [:new, :create, :index, :show]
+resources :chat_rooms, only: [:index, :show, :create] do
+resources :messages, only: [:create]
+end
+get "/chat_with/:id", to: "chat_rooms#chat_with", as: :chat_with_user
 
   root "home#index"
   
@@ -20,6 +24,8 @@ resources :packages, only: [:new, :create, :index, :show]
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
   get "/dashboard", to: "dashboard#index", as: :dashboard
+  get '/search_users', to: 'users#search', as: 'search_users'
+  get '/search_packages', to: 'packages#search', as: 'search_packages'
   
   namespace :clients do
     get 'dashboard/index'

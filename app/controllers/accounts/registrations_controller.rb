@@ -5,14 +5,30 @@ module Accounts
     end
 
     
-  def update
-    if params[:user].present? && params[:user][:avatar].present?
-      current_user.avatar.attach(params[:user][:avatar])
-      redirect_to edit_user_registration_path, notice: "Avatar updated successfully."
-    else
-      redirect_to edit_user_registration_path, alert: "No avatar selected."
+    def update
+      self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    
+      if sensitive_update?(account_update_params)
+        success = resource.update_with_password(account_update_params)
+      else
+        success = resource.update_without_password(account_update_params.except(:current_password))
+      end
+    
+      if success
+        if params[:user][:avatar].present?
+          resource.avatar.attach(params[:user][:avatar])
+        end
+    
+        set_flash_message :notice, :updated if is_flashing_format?
+        bypass_sign_in(resource)
+        redirect_to edit_user_registration_path, notice: "Account updated successfully."
+      else
+        clean_up_passwords resource
+        flash.now[:alert] = "Failed to update account."
+        render :edit, status: :unprocessable_entity
+      end
     end
-  end
+    
 
     def update_avatar
       if current_user.update(avatar_params)

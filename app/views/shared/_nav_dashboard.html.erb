@@ -5,6 +5,30 @@
     <%= link_to "GG T4", root_path, class: "hover:text-purple-400 transition" %>
   </div>
 
+  <!-- 🔍 User Search -->
+  <div class="w-1/2 px-4 relative" data-controller="user-search">
+  <input type="text"
+         name="query"
+         placeholder="Search users..."
+         data-user-search-target="input"
+         data-action="input->user-search#search"
+         class="w-full px-4 py-2 rounded-md bg-[#282a36] text-white placeholder-[#6272a4] focus:outline-none focus:ring-2 focus:ring-[#bd93f9] text-sm" />
+
+  <div id="search-results"
+       class="absolute z-50 top-full mt-2 w-full bg-[#1e1f29] text-white rounded-lg shadow-xl border border-[#44475a]">
+    <!-- Results appear here -->
+  </div>
+</div>
+
+
+  <!-- 🧠 Turbo Frame for Live Results -->
+  <turbo-frame id="search_results"
+               class="absolute top-full left-0 mt-2 w-full bg-[#1e1f29] text-white rounded-md shadow-lg border border-[#44475a] z-50 overflow-hidden">
+    <!-- Results will be dynamically injected here -->
+  </turbo-frame>
+</div>
+
+
   <!-- 👤 User Menu -->
   <div>
     <% if user_signed_in? %>

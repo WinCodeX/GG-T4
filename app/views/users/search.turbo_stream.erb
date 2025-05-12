@@ -1,0 +1,16 @@
+<%= turbo_stream.replace "search_results" do %>
+  <% if @users.any? %>
+    <ul class="divide-y divide-[#44475a]">
+      <% @users.each do |user| %>
+        <li>
+          <%= link_to chat_with_user_path(user),
+              class: "block px-4 py-2 hover:bg-[#44475a] transition-colors" do %>
+            <%= user.username %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="p-4 text-[#6272a4] text-center">No users found.</div>
+  <% end %>
+<% end %>

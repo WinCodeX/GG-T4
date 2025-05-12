@@ -1,0 +1,15 @@
+<% if users.any? %>
+  <div class="absolute w-full overflow-y-auto max-h-60 bg-[#1e1f29] rounded-lg shadow-xl border border-[#44475a] z-50">
+    <% users.each do |user| %>
+      <div class="p-3 border-b border-[#44475a] hover:bg-[#44475a] transition-colors">
+        <%= link_to chat_with_user_path(user), class: "text-dracula-purple hover:underline" do %>
+          <%= user.username %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="absolute w-full p-4 text-[#6272a4] text-center bg-[#1e1f29] rounded-lg shadow-xl border border-[#44475a]">
+    No users found.
+  </div>
+<% end %>

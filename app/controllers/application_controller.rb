@@ -24,5 +24,7 @@ def configure_permitted_parameters
       render json: { errors: 'Unauthorized' }, status: :unauthorized
     end
   end
+
+
   
 end

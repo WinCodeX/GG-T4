@@ -1,77 +1,111 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
 /* ✨ Dracula Theme for GG4App Web */
 
 body {
-    background-color: #282a36; /* Deep dark purple */
-    color: #f8f8f2; /* Light text */
-    font-family: 'Inter', 'Roboto', sans-serif;
-  }
-  
-  /* Navbar Styling */
-  .navbar {
-    background-color: #1e1e2f; /* Slightly darker navbar */
-    color: #f8f8f2;
-    border-bottom: 1px solid #6b46c1; /* Thin purple bottom line */
-  }
-  
-  /* Navbar Links */
-  .navbar a {
-    color: #f8f8f2;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar a:hover {
-    color: #9f7aea; /* Light purple on hover */
-  }
-  
-  /* Buttons */
-  .button-primary {
-    background-color: #6b46c1;
-    color: #ffffff;
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-    border: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  .button-primary:hover {
-    background-color: #9f7aea;
-  }
-  
-  /* Forms / Inputs */
-  input, select, textarea {
-    background-color: #1e1e2f;
-    color: #f8f8f2;
-    border: 1px solid #6b46c1;
-    border-radius: 6px;
-    padding: 0.5rem;
-  }
-  
-  input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: #9f7aea;
-  }
-  
-  /* Modals (optional if you want modals dark too) */
-  .modal {
-    background-color: #1e1e2f;
-    color: #f8f8f2;
-  }
-  
+  background-color: #282a36; /* Deep dark purple */
+  color: #f8f8f2; /* Light text */
+  font-family: 'Inter', 'Roboto', sans-serif;
+}
+
+/* Navbar Styling */
+.navbar {
+  background-color: #1a1b26; /* True Dracula tone */
+  color: #f8f8f2;
+  border-bottom: 2px solid #bd93f9; /* Vivid purple underline */
+  padding: 1rem;
+}
+
+/* Navbar Links */
+.navbar a {
+  color: #f8f8f2;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.navbar a:hover {
+  background-color: #44475a;
+  color: #bd93f9;
+}
+
+/* Buttons */
+.button-primary {
+  background-color: #6b46c1;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.button-primary:hover {
+  background-color: #9f7aea;
+}
+
+/* Inputs / Forms */
+input, select, textarea {
+  background-color: #1e1e2f;
+  color: #f8f8f2;
+  border: 1px solid #6b46c1;
+  border-radius: 6px;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #bd93f9;
+  box-shadow: 0 0 0 2px rgba(189, 147, 249, 0.4);
+}
+
+html, body {
+  height: 100%;
+}
+
+/* Modals */
+.modal {
+  background-color: #1e1e2f;
+  color: #f8f8f2;
+  border: 2px solid #bd93f9;
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+/* Utility */
+.border-gradient {
+  border-width: 2px;
+  border-style: solid;
+  border-image: linear-gradient(to right, #bd93f9, #ff79c6) 1;
+}
+
+.text-dracula-comment {
+  color: #6272a4;
+}
+
+.text-dracula-purple {
+  color: #bd93f9;
+}
+
+.text-dracula-pink {
+  color: #ff79c6;
+}
+
+.text-dracula-cyan {
+  color: #8be9fd;
+}
+
+.text-dracula-orange {
+  color: #ffb86c;
+}
+
+.bg-dracula-background {
+  background-color: #282a36;
+}
+
+.bg-dracula-surface {
+  background-color: #1e1e2f;
+}
 
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(-10px); }

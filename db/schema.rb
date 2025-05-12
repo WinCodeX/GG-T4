@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_04_190703) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_11_090531) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_04_190703) do
     t.index ["name", "location_id"], name: "index_areas_on_name_and_location_id", unique: true
   end
 
+  create_table "chat_rooms", force: :cascade do |t|
+    t.integer "sender_id"
+    t.integer "receiver_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "courier_services", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -82,6 +89,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_04_190703) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_locations_on_name", unique: true
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "chat_room_id", null: false
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_room_id"], name: "index_messages_on_chat_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "packages", force: :cascade do |t|
@@ -132,6 +149,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_04_190703) do
   add_foreign_key "agents", "locations"
   add_foreign_key "agents", "users"
   add_foreign_key "areas", "locations"
+  add_foreign_key "messages", "chat_rooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "packages", "agents", column: "receiver_agent_id"
   add_foreign_key "packages", "agents", column: "sender_agent_id"
   add_foreign_key "packages", "areas", column: "receiver_area_id"
