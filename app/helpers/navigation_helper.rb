@@ -1,14 +1,16 @@
 module NavigationHelper
   def dashboard_path_for(user)
-    case
-    when user.client?
+    case user.role
+    when "client"
       Rails.application.routes.url_helpers.clients_dashboard_path
-    when user.admin?
+    when "admin"
       Rails.application.routes.url_helpers.admin_dashboard_path
-    when user.agent?
+    when "agent"
       Rails.application.routes.url_helpers.agents_dashboard_path
-    when user.rider?
+    when "rider"
       Rails.application.routes.url_helpers.riders_dashboard_path
+    else
+      "#" # fallback or raise error if needed
     end
   end
 end
