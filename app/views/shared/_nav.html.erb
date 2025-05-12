@@ -6,22 +6,34 @@
   </div>
 
   <!-- 👤 User Menu -->
-  <div>
-    <% if user_signed_in? %>
+<div>
+  <% if user_signed_in? %>
+    <%= turbo_frame_tag "avatar_frame" do %>
       <div x-data="{ open: false }" class="relative inline-block text-left">
         <!-- 🖼 Avatar -->
         <div
           class="flex items-center cursor-pointer select-none"
           @click="open = !open"
           @click.outside="open = false">
+
           <% if current_user.avatar.attached? %>
-          <span class="text-xl text-gray-100"><%= current_user.username || current_user.email.split('@').first %></span>
-            <%= image_tag current_user.avatar.variant(resize_to_fill: [48, 48]), class: "rounded-full h-12 w-12 object-cover" %>
+            <span class="text-xl text-gray-100">
+              <%= current_user.username || current_user.email.split('@').first %>
+            </span>
+            <%= image_tag current_user.avatar.variant(resize_to_fill: [48, 48]),
+                          class: "rounded-full h-12 w-12 object-cover" %>
           <% else %>
-            <span class="text-xl text-gray-100"><%= current_user.username || current_user.email.split('@').first %></span>
-            <%= image_tag avatar_url_for(current_user), class: "rounded-full h-12 w-12 object-cover" %>
+            <span class="text-xl text-gray-100">
+              <%= current_user.username || current_user.email.split('@').first %>
+            </span>
+            <%= image_tag avatar_url_for(current_user),
+                          class: "rounded-full h-12 w-12 object-cover" %>
           <% end %>
         </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 
         <!-- 📂 Dropdown Menu -->
         <div
