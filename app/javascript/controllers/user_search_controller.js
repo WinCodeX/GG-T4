@@ -3,16 +3,38 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["input"]
 
+  connect() {
+    this.handleClickOutside = this._handleClickOutside.bind(this)
+    document.addEventListener("click", this.handleClickOutside)
+  }
+
+  disconnect() {
+    document.removeEventListener("click", this.handleClickOutside)
+  }
+
   search() {
     const query = this.inputTarget.value.trim()
-    if (query.length < 1) return
+    const resultsBox = document.getElementById("search-results")
+
+    if (query.length < 1) {
+      resultsBox.classList.add("hidden")
+      resultsBox.innerHTML = ""
+      return
+    }
 
     fetch(`/search_users?query=${encodeURIComponent(query)}`)
       .then((response) => response.text())
       .then((html) => {
-        const box = document.getElementById("search-results")
-        if (box) box.innerHTML = html
+        resultsBox.innerHTML = html
+        resultsBox.classList.remove("hidden")
       })
       .catch((err) => console.error("Search failed", err))
+  }
+
+  _handleClickOutside(event) {
+    if (!this.element.contains(event.target)) {
+      const resultsBox = document.getElementById("search-results")
+      resultsBox.classList.add("hidden")
+    }
   }
 }
