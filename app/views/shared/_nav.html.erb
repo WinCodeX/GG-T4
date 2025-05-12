@@ -12,32 +12,6 @@
     <%= turbo_frame_tag "avatar_frame" do %>
       <%= render partial: "shared/avatar_dropdown", locals: { current_user: current_user } %>
     <% end %>
-
-<!-- Dropdown Menu -->
-  <div
-    x-show="open"
-    x-cloak
-    class="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg z-50 transition-opacity duration-200"
-  >
-    <% if current_user.client? %>
-      <%= link_to "Dashboard", clients_dashboard_path, class: "block px-4 py-2 hover:bg-gray-100" %>
-    <% elsif current_user.admin? %>
-      <%= link_to "Dashboard", admin_dashboard_path, class: "block px-4 py-2 hover:bg-gray-100" %>
-    <% elsif current_user.agent? %>
-      <%= link_to "Dashboard", agents_dashboard_path, class: "block px-4 py-2 hover:bg-gray-100" %>
-    <% elsif current_user.rider? %>
-      <%= link_to "Dashboard", riders_dashboard_path, class: "block px-4 py-2 hover:bg-gray-100" %>
-    <% end %>
-
-    <%= link_to "Edit Profile", edit_user_registration_path, class: "block px-4 py-2 hover:bg-gray-100" %>
-    <%= link_to "Settings", "#", class: "block px-4 py-2 hover:bg-gray-100" %>
-
-    <%= button_to "Logout", destroy_user_session_path,
-        method: :delete,
-        form_class: "w-full text-left",
-        data: { turbo: false },
-        class: "block px-4 py-2 text-red-600 hover:bg-gray-100" %>
-  </div>
   <% else %>
     <%= link_to "Login", new_user_session_path, class: "mr-4 hover:text-purple-400 transition" %>
     <%= link_to "Sign Up", new_user_registration_path, class: "hover:text-purple-400 transition" %>
