@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "avatar_frame" do %>
+  <%= render partial: "shared/avatar_dropdown", locals: { current_user: current_user } %>
+<% end %>
