@@ -20,7 +20,8 @@
         <turbo-frame id="chat_panel" class="flex-1 bg-[#0d0d0d] p-4 overflow-y-auto">  
         <section class="flex-1 overflow-y-auto p-6">  
        <!-- ChatRoom#show renders here -->  
-<%= render "/chat_rooms/show", room: @chat_room %>
+<%= render template: "chat_rooms/show", 
+      locals: { chat_room: @chat_room, messages: @messages, chat_with: @chat_with } %>
         </section>  
         </turbo-frame>  
   </turbo-frame>  
