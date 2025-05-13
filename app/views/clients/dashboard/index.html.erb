@@ -16,20 +16,28 @@
       <% case controller_name %>
       <% when 'chat_rooms' %>
         <!-- 📋 Chat List (Left Panel) -->
-        <turbo-frame id="dashboard_content" class="flex-1 bg-[#0d0d0d] h-full overflow-y-auto">
-        <aside class="w-[380px] bg-[#1e1f2b]  overflow-y-auto p-4">
-           <%= render "shared/chat_list", chat_rooms: @chat_rooms %>
-        </aside>
-       
+        <% when 'chat_rooms' %>
+  <!-- wrap the two panes in one frame that’s a flex container -->
+  <turbo-frame id="dashboard_content" class="flex-1 flex h-full bg-[#0d0d0d]">
 
-        <!-- 💬 Chat Panel (Right Panel) -->
-        <turbo-frame id="chat_panel" class="flex-1 bg-[#0d0d0d] p-4 overflow-y-auto">
-        <section class="flex-1 overflow-y-auto p-6">
-       <!-- ChatRoom#show renders here -->
-        </section>
-        </turbo-frame>
+    <!-- 📋 Chat List Sidebar (fixed 380px) -->
+    <aside class="w-[380px] bg-[#1e1f2b] border-r border-[#44475a] overflow-y-auto p-4">
+      <%= render "shared/chat_list", chat_rooms: @chat_rooms %>
+    </aside>
 
-</turbo-frame>
+    <!-- 💬 Chat Panel (flexible, fills rest) -->
+    <div class="flex-1 flex flex-col">
+      <turbo-frame id="chat_panel" class="flex-1 overflow-y-auto p-4 bg-[#0d0d0d]">
+        <!-- Optional placeholder until a chat is selected -->
+        <div class="h-full flex items-center justify-center text-[#6272a4] italic">
+          Select a chat to begin.
+        </div>
+      </turbo-frame>
+    </div>
+
+  </turbo-frame>
+
+
       <% when 'trackings' %>
         <!-- 🚚 Tracking Page Content -->
         <section class="flex-1 overflow-y-auto p-6">
