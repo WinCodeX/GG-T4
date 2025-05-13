@@ -22,9 +22,10 @@ class ChatRoomsController < ApplicationController
       
 
         if turbo_frame_request?
-          render layout: false
+        
+render partial: "chat_rooms/show", layout: false
         else
-          render :show
+          render partial: "chat_rooms/show", layout: false
         end
       end
     
