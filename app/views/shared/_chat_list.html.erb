@@ -9,7 +9,7 @@
 
     <%= render "shared/user_avatar_with_name", user: other_user %>
     <div class="flex flex-col">
-      <span class="text-sm font-medium text-white truncate"><%= other_user.username %></span>
+      <span class="text-sm font-medium text-white truncate"><%= other_user.username || other_user.email.split('@').first %></span>
       <span class="text-xs text-[#6272a4] truncate">
         <%= room.messages.last&.body || "No messages yet" %>
       </span>
