@@ -14,6 +14,7 @@
   <%= render "shared/chat_list", chat_rooms: @chat_rooms %>
 </div>
   
+  </turbo-frame> 
 
   
         <!-- 💬 Chat Panel (Right Panel) -->  
@@ -23,8 +24,7 @@
 <%= render template: "chat_rooms/show", 
       locals: { chat_room: @chat_room, messages: @messages, chat_with: @chat_with } %>
         </section>  
-        </turbo-frame>  
-  </turbo-frame>  
+        </turbo-frame>   
   
 
       <% when 'trackings' %>
