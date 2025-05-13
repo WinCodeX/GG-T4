@@ -12,5 +12,9 @@ class ChatRoom < ApplicationRecord
         .first
     end
     
+    def other_participant(user)
+      user == sender ? receiver : sender
+    end
+
   end
   

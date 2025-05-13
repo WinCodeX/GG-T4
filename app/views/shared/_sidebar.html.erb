@@ -1,5 +1,6 @@
 <!-- Dracula-Styled Sidebar Full Height -->
-<div class="w-60 fixed top-16 left-0 h-[calc(100vh-4rem)] bg-[#1e1f29] text-white z-40 border-r border-[#44475a] flex flex-col">
+<div class="fixed top-16 left-0 w-64 h-[calc(100vh-4rem)] bg-[#1e1f29] z-40 overflow-y-auto">
+
   <!-- 🔍 Search Bar -->
   <div class="p-4 border-b border-[#44475a]">
     <input
@@ -21,12 +22,21 @@
     </a>
 
     <!-- 💬 Chat -->
-    <a href="/chat_rooms" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#313244] transition group">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#bd93f9] group-hover:text-[#8be9fd]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8s-9-3.582-9-8 4.03-8 9-8 9 3.582 9 8z" />
-      </svg>
-      <span class="group-hover:text-[#8be9fd]">Chat</span>
-    </a>
+<a href="/chat_rooms"   data-turbo-frame="dashboard_content" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#44475a] transition group">
+  <!-- Chat Icon -->
+  <svg xmlns="http://www.w3.org/2000/svg"
+       viewBox="0 0 24 24"
+       fill="currentColor"
+       class="w-5 h-5 text-[#bd93f9] group-hover:text-[#8be9fd] transition">
+    <path fill-rule="evenodd"
+          d="M4.804 21.644A6.707 6.707 0 0 0 6 21.75a6.721 6.721 0 0 0 3.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 2.409 1.025 4.587 2.674 6.192.232.226.277.428.254.543a3.73 3.73 0 0 1-.814 1.686.75.75 0 0 0 .44 1.223ZM8.25 10.875a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25ZM10.875 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875-1.125a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25Z"
+          clip-rule="evenodd" />
+  </svg>
+
+  <!-- Chat Label -->
+  <span class="text-[#f8f8f2] group-hover:text-[#8be9fd] transition">Chat</span>
+</a>
+
 
     <!-- 🧑 Business Profile -->
     <a href="/business" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#313244] transition group">

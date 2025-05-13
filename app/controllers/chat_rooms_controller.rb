@@ -11,13 +11,23 @@ class ChatRoomsController < ApplicationController
 
     def index
       @chat_rooms = ChatRoom.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)
+      render "clients/dashboard/index"
     end
   
     def show
       @chat_room = ChatRoom.find(params[:id])
       @messages = @chat_room.messages.includes(:user)
       @chat_with = @chat_room.sender == current_user ? @chat_room.receiver : @chat_room.sender
-    end
+
+      
+
+        if turbo_frame_request?
+          render layout: false
+        else
+          render :show
+        end
+      end
+    
   
     def create
       other_user = User.find(params[:user_id])

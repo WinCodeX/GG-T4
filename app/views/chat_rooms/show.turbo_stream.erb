@@ -1,0 +1,5 @@
+<%= turbo_stream.replace "chat_panel" do %>
+    <%= render partial: "chat_rooms/show",
+    locals:{ chat_room: @chat_room, messages: @messages, chat_with: @chat_with }%>
+  <% end %>
+  
