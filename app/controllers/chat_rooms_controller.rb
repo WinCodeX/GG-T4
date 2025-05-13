@@ -1,6 +1,6 @@
 class ChatRoomsController < ApplicationController
     before_action :authenticate_user!
-  
+  layout "application"
     def chat_with
       other_user = User.find(params[:id])
       @chat_room = ChatRoom.between(current_user, other_user) ||
@@ -23,9 +23,9 @@ class ChatRoomsController < ApplicationController
 
         if turbo_frame_request?
         
-render partial: "chat_rooms/show", layout: false
+
         else
-          render partial: "chat_rooms/show", layout: false
+          
         end
       end
     
