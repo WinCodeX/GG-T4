@@ -4,7 +4,7 @@
   <% other_user = room.sender == current_user ? room.receiver : room.sender %>
 
   <%= link_to chat_room_path(room),
-              data: { turbo_frame: "chat_panel", turbo_action: "replace" },
+              data: { turbo_frame: "dashboard"},
               class: "flex items-center p-3 rounded-lg hover:bg-[#313244] transition space-x-3" do %>
 
     <%= render "shared/user_avatar_with_name", user: other_user %>
