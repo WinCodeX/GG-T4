@@ -10,9 +10,14 @@ class ChatRoomsController < ApplicationController
     end
 
     def index
-      @chat_rooms = ChatRoom.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)
-      render "clients/dashboard/index"
-    end
+  @chat_rooms = ChatRoom.for_user(current_user)
+
+  if turbo_frame_request?
+    render partial: "chat_rooms/index", locals: { chat_rooms: @chat_rooms }
+  else
+    render "clients/dashboard/index"
+  end
+end
   
     def show
       @chat_room = ChatRoom.find(params[:id])
