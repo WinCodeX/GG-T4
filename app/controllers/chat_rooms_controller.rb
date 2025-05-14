@@ -15,7 +15,7 @@ class ChatRoomsController < ApplicationController
   )
 
   if turbo_frame_request?
-    render partial: "chat_rooms/index", locals: { chat_rooms: @chat_rooms }
+    render "chat_rooms/index", locals: { chat_rooms: @chat_rooms }
   else
     render "clients/dashboard/index"
   end
