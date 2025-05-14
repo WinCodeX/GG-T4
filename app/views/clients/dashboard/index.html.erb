@@ -1,12 +1,15 @@
 <!-- app/views/clients/dashboard/index.html.erb -->
+
+<!-- Sidebar -->
+    <aside class="w-64 h-full bg-[#1e1f29] border-r border-[#44475a] overflow-y-auto p-4">
+      <%= render "shared/sidebar" %>
+    </aside>
+
 <body class="bg-dracula-background text-dracula-foreground">
   <main class="flex h-[calc(100vh-4rem)] w-full overflow-hidden">
 
     <!-- Sidebar -->
-        <!-- Sidebar -->
-    <aside class="w-64 h-full bg-[#1e1f29] border-r border-[#44475a] overflow-y-auto p-4">
-      <%= render "shared/sidebar" %>
-    </aside>
+       
 
     <!-- Main Dashboard Content -->
     <section class="flex-1 overflow-y-auto">
