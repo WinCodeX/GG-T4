@@ -1,9 +1,10 @@
 <%# app/views/clients/dashboard/index.html.erb %>
 
-<%= render "shared/sidebar" %>
+      
 
 <body class="bg-dracula-background text-dracula-foreground">
   <main class="relative w-full h-[calc(100vh-4rem)] overflow-hidden flex">
+<%= render "shared/sidebar" %>
     <%= turbo_frame_tag :dashboard do %>
       <div class="flex h-full">
         <% case controller_name %>
