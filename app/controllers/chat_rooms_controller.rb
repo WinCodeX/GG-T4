@@ -26,7 +26,7 @@ end
       @messages = @chat_room.messages.includes(:user)
       @chat_with = @chat_room.sender == current_user ? @chat_room.receiver : @chat_room.sender
 
-      
+      @chat_rooms = ChatRoom.for_user(current_user) # <-- required for chatindex
 
         if turbo_frame_request?
     render partial: "chat_rooms/show", locals: { chat_room: @chat_room, messages: @messages, chat_with: @chat_with }
