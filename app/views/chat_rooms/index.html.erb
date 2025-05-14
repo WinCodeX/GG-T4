@@ -1,4 +1,5 @@
 <!-- app/views/chat_rooms/index.html.erb -->
+<%= turbo_frame_tag :dashboard do %>
 <div class="flex h-[calc(100vh-4rem)] mt-16">
   <!-- 🧭 First Sidebar (Your main sidebar is already fixed) -->
   <div class="w-64"></div> <!-- Leave space for the fixed sidebar -->
@@ -32,3 +33,4 @@
     </div>
   </div>
 </div>
+<% end %>
