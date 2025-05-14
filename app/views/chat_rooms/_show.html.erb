@@ -1,25 +1,24 @@
 <%= turbo_frame_tag :dashboard do %>
-             
-  <div class="pt-16 flex h-[calc(100vh-4rem)]">
-  
-    <%= render "chat_rooms/chatindex" %> <!-- works because @chat_rooms is defined -->
+  <div class="flex h-[calc(100vh-4rem)] overflow-hidden">
 
-    <!-- 💬 Chat Room Panel -->
+    <!-- Sidebar -->
+    <%= render "chat_rooms/chatindex", chat_rooms: @chat_rooms %>
+
+    <!-- Chat Room Panel -->
     <div class="flex-1 h-full flex flex-col bg-[#0d0d0d] text-white">
 
-      <!-- 💬 Chat Header -->
+      <!-- Chat Header -->
       <div class="sticky top-0 z-40 bg-[#1e1f29] px-4 py-2 flex items-center justify-between border-b border-[#44475a]">
         <div class="flex items-center space-x-3">
           <%= render "shared/user_avatar_with_name", user: @chat_with %>
         </div>
         <div class="flex space-x-4 text-gray-300">
-          <!-- Search Icon -->
-          <!-- Vertical Dots Icon -->
+          <!-- Search / Dots icons -->
         </div>
       </div>
 
-      <!-- 💬 Messages Panel -->
-      <div id="messages" class="flex-1 w-full overflow-y-auto px-4 py-3 space-y-3 bg-[#0d0d0d]">
+      <!-- Messages Panel -->
+      <div id="messages" class="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-[#0d0d0d]">
         <%= turbo_stream_from @chat_room %>
         <% @messages.each do |message| %>
           <% mine = message.user_id == current_user.id %>
@@ -34,7 +33,7 @@
         <% end %>
       </div>
 
-      <!-- ✍️ Message Input -->
+      <!-- Message Input -->
       <div class="w-full sticky bottom-0 p-4 bg-[#1e1f29] flex items-center">
         <%= form_with(model: [@chat_room, Message.new], data: { turbo_stream: true }, class: "flex w-full items-center gap-2") do |f| %>
           <div class="relative flex-1">
@@ -45,7 +44,7 @@
 
             <div class="absolute right-4 top-0.5 flex items-center">
               <%= button_tag type: "submit", class: "text-[#bd93f9] hover:text-white transition" do %>
-                <!-- Send Icon -->
+                <!-- Send icon -->
               <% end %>
             </div>
           </div>
