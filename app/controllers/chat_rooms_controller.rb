@@ -22,11 +22,10 @@ class ChatRoomsController < ApplicationController
       
 
         if turbo_frame_request?
-        
-
-        else
-          
-        end
+    render partial: "chat_rooms/chat_panel", locals: { chat_room: @chat_room, messages: @messages, chat_with: @chat_with }
+  else
+    render "clients/dashboard/index"
+  end
       end
     
   
