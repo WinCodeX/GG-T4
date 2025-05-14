@@ -1,9 +1,7 @@
 <%= turbo_frame_tag :dashboard do %>
   <div class="flex h-[calc(100vh-4rem)] mt-16">
   
-    <!-- 💬 Sidebar (Chat List) -->
-    <%= render "chat_rooms/chatindex", chat_rooms: @chat_rooms %>
-
+    
     <!-- 💬 Chat Room Panel -->
     <div class="flex-1 h-full w-full flex flex-col bg-[#0d0d0d] text-white">
 
