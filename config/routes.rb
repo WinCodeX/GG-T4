@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
   registrations: "accounts/registrations",
   sessions: "accounts/sessions"
-}
+}, only: [:new, :create, :destroy]
 
 
 devise_scope :user do
@@ -16,6 +16,10 @@ resources :chat_rooms, only: [:index, :show, :create] do
 resources :messages, only: [:create]
 end
 get "/chat_with/:id", to: "chat_rooms#chat_with", as: :chat_with_user
+
+
+
+
 
   root "home#index"
   
