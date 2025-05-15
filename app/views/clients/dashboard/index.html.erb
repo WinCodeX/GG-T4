@@ -3,9 +3,11 @@
 
 <%= render "shared/sidebar" %>
 
+<%= turbo_frame_tag :dashboard do %>
+
 <main class="h-[calc(100vh-4rem)] overflow-hidden bg-dracula-background text-dracula-foreground">
   <div class="mt-16 ml-64 h-full flex">
-<%= turbo_frame_tag :dashboard do %>
+
     <% case controller_name %>
     <% when 'chat_rooms' %>
 
