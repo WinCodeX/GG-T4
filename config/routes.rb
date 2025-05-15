@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   sessions: "accounts/sessions"
 }
 
+# Place this below your devise_for :users line
+delete "/custom_logout", to: "accounts/sessions#custom_destroy", as: :custom_logout
 
 devise_scope :user do
   patch 'users/update_avatar', to: 'accounts/registrations#update_avatar', as: :update_avatar
