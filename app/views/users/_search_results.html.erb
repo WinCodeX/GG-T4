@@ -1,11 +1,19 @@
 <% if users.any? %>
   <div class="absolute w-full overflow-y-auto max-h-60 bg-[#1e1f29] rounded-lg shadow-xl border border-[#44475a] z-50">
     <% users.each do |user| %>
-      <div class="p-3 border-b border-[#44475a] hover:bg-[#44475a] transition-colors">
-        <%= link_to chat_with_user_path(user), class: "text-dracula-purple hover:underline" do %>
-          <%= user.username %>
+      <%= link_to chat_with_user_path(user),
+                  data: { turbo_frame: "dashboard", turbo_action: "replace" },
+                  class: "flex items-center gap-3 p-3 border-b border-[#44475a] hover:bg-[#313244] transition-colors" do %>
+
+        <% if user.avatar.attached? %>
+          <%= image_tag user.avatar.variant(resize_to_fill: [32, 32]), class: "rounded-full h-8 w-8 object-cover" %>
+        <% else %>
+          <%= image_tag avatar_url_for(user), class: "rounded-full h-8 w-8 object-cover" %>
         <% end %>
-      </div>
+
+        <span class="text-sm text-[#f8f8f2] hover:underline"><%= user.username %></span>
+
+      <% end %>
     <% end %>
   </div>
 <% else %>
