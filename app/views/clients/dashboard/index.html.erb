@@ -3,7 +3,7 @@
 <%= render "shared/sidebar" %>
 
 <body class="bg-dracula-background text-dracula-foreground">
-  <main class="flex">
+ 
     <%= turbo_frame_tag :dashboard do %>
       <div class="flex h-full">
         <% case controller_name %>
@@ -53,5 +53,5 @@
         <% end %>
       </div>
     <% end %>
-  </main>
+ 
 </body>
