@@ -15,15 +15,11 @@ include ActionView::RecordIdentifier
     end
   end
 
-  def destroy
+  def custom_destroy
     if current_user
-      # Update last seen
       current_user.update_column(:last_seen_at, Time.current)
-
-      # Clear Redis (mark offline)
       Redis.current.del("online_status:#{current_user.id}")
 
-      # Turbo broadcast for real-time UI update
       Turbo::StreamsChannel.broadcast_replace_to(
         "user_status_#{current_user.id}",
         target: dom_id(current_user, :status),
@@ -32,6 +28,7 @@ include ActionView::RecordIdentifier
       )
     end
 
-    super
+    sign_out(current_user)
+    redirect_to root_path, notice: "Signed out successfully"
   end
 end
