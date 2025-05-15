@@ -8,7 +8,7 @@
         <% if user.avatar.attached? %>
           <%= image_tag user.avatar.variant(resize_to_fill: [32, 32]), class: "rounded-full h-8 w-8 object-cover" %>
         <% else %>
-          <%= image_tag avatar_url_for(user), class: "rounded-full h-8 w-8 object-cover" %>
+          <%= image_tag avatar_url_for(user), width: 32, height: 32, class: "rounded-full h-8 w-8 object-cover" %>
         <% end %>
 
         <span class="text-sm text-[#f8f8f2] transition-colors group-hover:text-white">
