@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
   registrations: "accounts/registrations",
   sessions: "accounts/sessions"
-}, only: [:destroy]
+}, [:destroy]
 
 
 devise_scope :user do
