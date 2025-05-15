@@ -6,8 +6,8 @@ class ChatRoom < ApplicationRecord
   validates :sender_id, uniqueness: { scope: :receiver_id }
 
   scope :for_user, ->(user) {
-    where("sender_id = :id OR receiver_id = :id", id: user.id)
-  }
+  where("sender_id = ? OR receiver_id = ?", user.id, user.id)
+}
 
   def self.between(user1, user2)
     where(sender_id: user1.id, receiver_id: user2.id)
