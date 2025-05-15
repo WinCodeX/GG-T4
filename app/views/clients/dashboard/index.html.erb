@@ -8,7 +8,6 @@
     <% case controller_name %>
     <% when 'chat_rooms' %>
 
-<%= turbo_frame_tag :dashboard do %>
       <!-- 📋 Chat List (Left Panel) -->
       <div class="w-[380px] h-full bg-[#1e1f2b] border-r border-[#44475a] overflow-y-auto p-4">
         <%= render "shared/chat_list", chat_rooms: @chat_rooms %>
@@ -16,11 +15,12 @@
 
       <!-- 💬 Chat Panel (Right Panel) -->
       <div class="flex-1 overflow-y-auto p-6">
-        <%= turbo_frame_tag :chat_panel do %>
+       
+        <%= turbo_frame_tag :dashboard do %>>
           <!-- ChatRoom#show renders here -->
         <% end %>
       </div>
-<% end %>
+
 
     <% when 'trackings' %>
       <section class="flex-1 overflow-y-auto p-6">
