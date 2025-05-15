@@ -1,6 +1,7 @@
 <% user ||= current_user %>
 
 <div class="flex items-center space-x-4">
+
   <%# Avatar %>
   <% if user.avatar.attached? %>
     <%= image_tag user.avatar.variant(resize_to_fill: [48, 48]), class: "rounded-full h-12 w-12 object-cover" %>
@@ -8,20 +9,21 @@
     <%= image_tag avatar_url_for(user), class: "rounded-full h-12 w-12 object-cover" %>
   <% end %>
 
-  <%# Username + Last Seen %>
+  <%# Username + Online/Last Seen %>
   <div class="flex flex-col justify-center">
     <span class="text-xl font-semibold text-gray-100">
       <%= user.username || user.email.split('@').first %>
     </span>
 
-    <% if user.last_seen_at.present? %>
+    <% if OnlineStatusTracker.online?(user.id) %>
+      <span class="text-xs text-green-400">Online now</span>
+    <% elsif user.last_seen_at.present? %>
       <span class="text-xs text-gray-400">
         Last seen today at <%= user.last_seen_at.strftime("%H:%M") %>
       </span>
     <% else %>
-      <span class="text-xs text-gray-400">
-        Last seen unknown
-      </span>
+      <span class="text-xs text-gray-400">Last seen unknown</span>
     <% end %>
   </div>
+
 </div>
