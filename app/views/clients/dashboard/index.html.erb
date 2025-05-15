@@ -3,11 +3,12 @@
 
 <%= render "shared/sidebar" %>
 
-<%= turbo_frame_tag :dashboard do %>
 <main class="h-[calc(100vh-4rem)] overflow-hidden bg-dracula-background text-dracula-foreground">
   <div class="mt-16 ml-64 h-full flex">
     <% case controller_name %>
     <% when 'chat_rooms' %>
+
+<%= turbo_frame_tag :dashboard do %>
       <!-- 📋 Chat List (Left Panel) -->
       <div class="w-[380px] h-full bg-[#1e1f2b] border-r border-[#44475a] overflow-y-auto p-4">
         <%= render "shared/chat_list", chat_rooms: @chat_rooms %>
@@ -52,6 +53,6 @@
         </div>
       </section>
     <% end %>
+  <% end %>
   </div>
 </main>
-<% end %>
