@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   get 'packages/create'
   devise_for :users, controllers: {
-  registrations: "accounts/registrations"
+  registrations: "accounts/registrations",
+  sessions: "accounts/sessions"
 }
 
 
