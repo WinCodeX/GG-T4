@@ -11,11 +11,11 @@ def update_last_seen
     current_user.update_column(:last_seen_at, Time.current)
 
     Turbo::StreamsChannel.broadcast_replace_to(
-      current_user,
-      target: dom_id(current_user, :status),
-      partial: "shared/user_avatar_with_name",
-      locals: { user: current_user }
-    )
+  "user_status_#{current_user.id}", # Channel key must match the stream subscription
+  target: dom_id(current_user, :status),
+  partial: "shared/user_status", # This partial must match what you're rendering
+  locals: { user: current_user }
+)
   end
 
 protected
