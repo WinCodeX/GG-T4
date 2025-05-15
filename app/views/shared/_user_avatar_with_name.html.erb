@@ -1,30 +1,33 @@
-<div id="<%= dom_id(user, :status) %>">
-  
-  <% user ||= current_user %>
+<% user ||= current_user %>
 
-  <div class="flex items-center space-x-4">
-    <%# Avatar %>
-    <% if user.avatar.attached? %>
-      <%= image_tag user.avatar.variant(resize_to_fill: [48, 48]), class: "rounded-full h-12 w-12 object-cover" %>
-    <% else %>
-      <%= image_tag avatar_url_for(user), class: "rounded-full h-12 w-12 object-cover" %>
-    <% end %>
+<div class="flex items-center space-x-4">
+  <!-- Avatar -->
+  <% if user.avatar.attached? %>
+    <%= image_tag user.avatar.variant(resize_to_fill: [48, 48]), class: "rounded-full h-12 w-12 object-cover" %>
+  <% else %>
+    <%= image_tag avatar_url_for(user), class: "rounded-full h-12 w-12 object-cover" %>
+  <% end %>
 
-    <%# Username + Online/Last Seen %>
-    <div class="flex flex-col justify-center" data-controller="time-formatter">
-      <span class="text-xl font-semibold text-gray-100">
-        <%= user.username || user.email.split('@').first %>
-      </span>
+  <!-- Username -->
+  <div class="flex flex-col justify-center">
+    <span class="text-xl font-semibold text-gray-100">
+      <%= user.username || user.email.split('@').first %>
+    </span>
 
+    <!-- Online Status Turbo Frame -->
+    <%= turbo_frame_tag dom_id(user, :status) do %>
       <% if OnlineStatusTracker.online?(user.id) %>
         <span class="text-xs text-green-400">Online now</span>
       <% elsif user.last_seen_at.present? %>
-        <span class="text-xs text-gray-400" data-time-formatter-target="time" data-utc-time="<%= user.last_seen_at.utc.iso8601 %>">
+        <span class="text-xs text-gray-400"
+              data-controller="time-formatter"
+              data-time-formatter-target="time"
+              data-utc-time="<%= user.last_seen_at.utc.iso8601 %>">
           Last seen today at loading...
         </span>
       <% else %>
         <span class="text-xs text-gray-400">Last seen unknown</span>
       <% end %>
-    </div>
+    <% end %>
   </div>
 </div>
