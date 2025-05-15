@@ -41,7 +41,9 @@ end
       @chat_rooms = ChatRoom.for_user(current_user) # <-- required for chatindex
 
         if turbo_frame_request?
-    render partial: "chat_rooms/show", locals: { chat_room: @chat_room, messages: @messages, chat_with: @chat_with }
+    render partial: "chat_rooms/show", 
+layout: false,
+locals: { chat_room: @chat_room, messages: @messages, chat_with: @chat_with }
   else
     render "clients/dashboard/index"
   end
