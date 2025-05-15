@@ -31,6 +31,13 @@ export default class extends Controller {
       .catch((err) => console.error("Search failed", err))
   }
 
+  clear() {
+    this.inputTarget.value = "" // Clear the input
+    const resultsBox = document.getElementById("search-results")
+    resultsBox.classList.add("hidden") // Hide results
+    resultsBox.innerHTML = "" // Optionally clear HTML
+  }
+
   _handleClickOutside(event) {
     if (!this.element.contains(event.target)) {
       const resultsBox = document.getElementById("search-results")
