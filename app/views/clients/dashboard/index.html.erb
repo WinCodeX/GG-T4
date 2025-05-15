@@ -5,6 +5,7 @@
 
 <main class="h-[calc(100vh-4rem)] overflow-hidden bg-dracula-background text-dracula-foreground">
   <div class="mt-16 ml-64 h-full flex">
+<%= turbo_frame_tag :dashboard do %>
     <% case controller_name %>
     <% when 'chat_rooms' %>
 
@@ -16,9 +17,9 @@
       <!-- 💬 Chat Panel (Right Panel) -->
       <div class="flex-1 overflow-y-auto p-6">
        
-        <%= turbo_frame_tag :dashboard do %>>
+        
           <!-- ChatRoom#show renders here -->
-        <% end %>
+        
       </div>
 
 
@@ -52,6 +53,7 @@
           </button>
           <%= render "packages/create_modal" %>
         </div>
+<% end %>
       </section>
   </div>
 </main>
