@@ -5,8 +5,17 @@ class ApplicationController < ActionController::Base
 before_action :update_last_seen, unless: :devise_controller?
 
 def update_last_seen
-  current_user.update(last_seen_at: Time.current) if user_signed_in?
-end
+    return unless current_user
+
+    current_user.update_column(:last_seen_at, Time.current)
+
+    Turbo::StreamsChannel.broadcast_replace_to(
+      current_user,
+      target: dom_id(current_user, :status),
+      partial: "shared/user_avatar_with_name",
+      locals: { user: current_user }
+    )
+  end
 
 protected
 
