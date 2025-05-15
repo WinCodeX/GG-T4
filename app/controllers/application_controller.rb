@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
     before_action :configure_permitted_parameters, if: :devise_controller?
 
-before_action :update_last_seen
+before_action :update_last_seen, unless: :devise_controller?
 
 def update_last_seen
   current_user.update(last_seen_at: Time.current) if user_signed_in?
