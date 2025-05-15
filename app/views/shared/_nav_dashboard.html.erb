@@ -13,11 +13,11 @@
          data-action="input->user-search#search"
          class="w-full px-4 py-2 rounded-md bg-[#282a36] text-white placeholder-[#6272a4] focus:outline-none focus:ring-2 focus:ring-[#bd93f9] text-sm" />
 
-  <!-- ✅ Turbo Frame for Search Results -->
-  <turbo-frame id="search_results"
-               class="absolute top-full left-0 mt-2 w-full bg-[#282a36] text-[#f8f8f2] rounded-lg shadow-xl border border-[#44475a] backdrop-blur-sm z-50">
-    <!-- Results will be injected here via turbo_stream -->
-  </turbo-frame>
+  <div id="search-results"
+     data-user-search-target="results"
+     class="absolute top-full left-0 mt-2 w-full bg-[#282a36] text-[#f8f8f2] rounded-lg shadow-xl border border-[#44475a] backdrop-blur-sm z-50 hidden">
+  <!-- Results will be injected here by Stimulus -->
+</div>
 </div>
 
 
