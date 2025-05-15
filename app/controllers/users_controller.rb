@@ -7,11 +7,7 @@ class UsersController < ApplicationController
   def search
     @users = User.where("username ILIKE ?", "%#{params[:query]}%").limit(10)
 
-    render turbo_stream: turbo_stream.replace(
-  "search_results",
-  partial: "users/search_results",
-  locals: { users: @users }
-)
+    render partial: "users/search_results", locals: { users: @users }
       end
     end
 
