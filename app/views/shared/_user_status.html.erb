@@ -1,4 +1,4 @@
-
+<%= turbo_frame_tag dom_id(user, :status) do %>
   <% if OnlineStatusTracker.online?(user.id) %>
     <span class="text-xs text-green-400">Online now</span>
   <% elsif user.last_seen_at.present? %>
@@ -11,3 +11,4 @@
   <% else %>
     <span class="text-xs text-gray-400">Last seen unknown</span>
   <% end %>
+<% end %>
