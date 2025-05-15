@@ -1,4 +1,5 @@
 class Accounts::SessionsController < Devise::SessionsController
+include ActionView::RecordIdentifier
   protected
 
   def respond_with(resource, _opts = {})
