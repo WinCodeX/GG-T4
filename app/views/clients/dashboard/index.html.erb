@@ -3,7 +3,7 @@
 <%= render "shared/sidebar" %>
 
 <body class="bg-dracula-background text-dracula-foreground">
-  <main class="fixed w-full ml-64 mt-16 h-[calc(100vh-4rem)] overflow-hidden">
+  <main class="flex">
     <%= turbo_frame_tag :dashboard do %>
       <div class="flex h-full">
         <% case controller_name %>
