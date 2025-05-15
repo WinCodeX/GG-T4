@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
     render turbo_stream: turbo_stream.replace(
   "search_results",
-  partial: "shared/search_results",
+  partial: "users/search_results",
   locals: { users: @users }
 )
       end
