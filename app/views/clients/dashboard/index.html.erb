@@ -1,10 +1,9 @@
 <%# app/views/clients/dashboard/index.html.erb %>
 
 
-<body class="bg-dracula-background text-dracula-foreground">
- <main class="mt-16 ml-64 h-[calc(100vh-4rem)]">
-  <!-- Your main content goes here -->
-  <!-- Your content here -->
+<%= render "shared/sidebar" %>
+
+<main class="mt-16 ml-64 h-[calc(100vh-4rem)] overflow-hidden bg-dracula-background text-dracula-foreground">
 
     <%= turbo_frame_tag :dashboard do %>
       <div class="flex h-full">
@@ -57,4 +56,3 @@
     <% end %>
 </main>
  
-</body>
