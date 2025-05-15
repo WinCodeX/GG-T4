@@ -14,8 +14,12 @@
       <%= user.username || user.email.split('@').first %>
     </span>
 
-    <!-- ✅ Turbo Stream subscription + Real-time status -->
+    <!-- ✅ Turbo Stream Subscription -->
     <%= turbo_stream_from "user_status_#{user.id}" %>
-    <%= render "shared/user_status", user: user %>
+
+    <!-- ✅ Turbo Frame Tag to replace on broadcast -->
+    <%= turbo_frame_tag dom_id(user, :status) do %>
+      <%= render "shared/user_status", user: user %>
+    <% end %>
   </div>
 </div>
