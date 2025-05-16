@@ -17,10 +17,24 @@
 #)
 
 
-User.find_or_create_by!(email: "glenwinterg970@gmail.com") do |user|
- user.username = "WinCodeX"
- user.password = "Leviathan@Xcode"
-  user.password_confirmation = "Leviathan@Xcode"
+if User.count.zero?
+  User.create!(
+    username: 'level0',
+    email: 'infinityx970@gmail.com',
+    password: 'Leviathan@Xcode',
+    password_confirmation: 'Leviathan@Xcode'
+  )
+
+  User.create!(
+    username: 'WinCodeX',
+    email: 'glenwinterg970@gmail.com',
+    password: 'Leviathan@Xcode',
+    password_confirmation: 'Leviathan@Xcode'
+  )
+
+  puts "Seeded default users successfully."
+else
+  puts "Users already exist. No new users seeded."
 end
 
 # Create Locations
