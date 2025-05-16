@@ -19,10 +19,14 @@ bundle exec rails db:migrate:up VERSION=20250425192850  # agents
 bundle exec rails db:migrate:up VERSION=20250425201824   # courier_services
 bundle exec rails db:migrate:up VERSION=20250425192853   # packages
 
-bundle exec rails db:migrate:up VERSION=20250511090435   # ChatRooms first
-bundle exec rails db:migrate:up VERSION=20250511090531   # Messages next
+
 
 bundle exec rails db:migrate:up VERSION=20250504190703
+
+
+bundle exec rails db:migrate:up VERSION=20250511090435   # ChatRooms first
+
+bundle exec rails db:migrate:up VERSION=20250511090531   # Messages next
 
 echo "=== Seeding Test Data ==="
 bundle exec rails db:seed
