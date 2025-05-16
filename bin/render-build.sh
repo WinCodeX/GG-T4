@@ -28,6 +28,9 @@ bundle exec rails db:migrate:up VERSION=20250511090435   # ChatRooms first
 
 bundle exec rails db:migrate:up VERSION=20250511090531   # Messages next
 
+bundle exec rails db:migrate:up VERSION=20250515054218   #addlastseentousers
+      
+
 echo "=== Seeding Test Data ==="
 bundle exec rails db:seed
 
