@@ -16,6 +16,13 @@
   #password_confirmation: 'Leviathan@Xcode',
 #)
 
+
+User.find_or_create_by!(email: "glenwinterg970@gmail.com") do |user|
+ user.username = "WinCodeX"
+ user.password = "Leviathan@Xcode"
+  user.password_confirmation = "Leviathan@Xcode"
+end
+
 # Create Locations
 #nairobi = Location.create!(name: "Nairobi", description: #"Capital city of Kenya")
 #mombasa = Location.create!(name: "Mombasa", description: "Coastal city of Kenya")
