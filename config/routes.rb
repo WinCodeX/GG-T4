@@ -51,11 +51,13 @@ get "/chat_with/:id", to: "chat_rooms#chat_with", as: :chat_with_user
   # config/routes.rb
 namespace :api do
   namespace :v1 do
+    resources :users, only: [:index, :show, :update] do
     post   '/login',  to: 'auth#login'
     delete '/logout', to: 'auth#logout'
     get    '/me',     to: 'users#me'
     put    '/me',     to: 'users#update'
   end
+end
 end
 
    # Must include :index

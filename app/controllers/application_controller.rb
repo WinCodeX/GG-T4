@@ -1,9 +1,30 @@
 class ApplicationController < ActionController::Base
 include ActionView::RecordIdentifier
 
-    before_action :configure_permitted_parameters, if: :devise_controller?
+respond_to :json
+
+before_action :configure_permitted_parameters, if: :devise_controller?
 
 before_action :update_last_seen, unless: :devise_controller?
+before_action :set_current_user, unless: :devise_controller?
+
+
+# Handle invalid token errors
+rescue_from ActiveRecord::RecordNotFound, with: :invalid_token
+
+
+rescue_from ActionController::InvalidAuthenticityToken,
+with: :invalid_token
+rescue_from JWT::DecodeError, with: :invalid_token
+
+def invalid_token
+  render json: { error: 'Invalid token' }, status: :unauthorized
+end
+
+def authenticate_user!(options = {})
+head :unauthorized unless current_user
+end
+
 
 def update_last_seen
     return unless current_user
@@ -29,7 +50,7 @@ def configure_permitted_parameters
 
   protect_from_forgery with: :null_session
 
-  def authorize_request
+  def set_current_user
     header = request.headers['Authorization']
     token = header.split(' ').last if header
 
